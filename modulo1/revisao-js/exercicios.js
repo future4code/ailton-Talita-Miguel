@@ -121,7 +121,79 @@ function classificaTriangulo(ladoA, ladoB, ladoC) {
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
-  
+
+    console.log('origi', array)
+    
+    const primeiroMaiorValor = () => {
+        let valor = -Infinity
+        let indexDoNumero
+
+        for (let i = 0; i < array.length; i++) {
+            if(array[i] > valor) {
+                valor = array[i]
+            }
+        }
+    
+        indexDoNumero = array.indexOf(valor)
+    
+        array.splice(indexDoNumero, 1)
+
+    }
+
+    primeiroMaiorValor()
+
+
+    const segundoMaiorValor = () => {
+        let valor2 = -Infinity
+
+        for (let i = 0; i < array.length; i++) {
+            if(array[i] > valor2) {
+                valor2 = array[i]
+            }
+        }
+
+        return valor2
+
+    }
+
+    const segundoMaiorNumero = segundoMaiorValor()
+
+    const primeiroMenorValor = () => {
+        let valor = Infinity
+        let indexDoNumero
+
+        for (let i = 0; i < array.length; i++) {
+            if(array[i] < valor) {
+                valor = array[i]
+            }
+        }
+
+        indexDoNumero = array.indexOf(valor)
+    
+        array.splice(indexDoNumero, 1)
+
+    }
+
+    primeiroMenorValor()
+
+    const segundoMenorValor = () => {
+        let valor2 = Infinity
+
+        for (let i = 0; i < array.length; i++) {
+            if(array[i] < valor2) {
+                valor2 = array[i]
+            }
+        }
+
+        return valor2
+
+    }
+
+    const segundoMenorNumero = segundoMenorValor()
+
+    console.log(segundoMenorNumero)
+    
+    
 }
 
 // EXERCÍCIO 11
