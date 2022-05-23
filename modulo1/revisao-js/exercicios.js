@@ -88,12 +88,35 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
 
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
-   
+    let nNumerosPares = []
+    let num = Number(n)
+
+    for(let i = 0; nNumerosPares.length < num; i++) {
+        if(i % 2 === 0) {
+            nNumerosPares.push(i)
+        }
+
+    }
+    
+    return nNumerosPares
+    
 }
 
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
+    let triangulo
 
+    if (ladoA === ladoB && ladoA === ladoC) {
+        triangulo = 'Equilátero'
+
+    } else if (ladoA === ladoB || ladoA === ladoC || ladoB === ladoC) {
+        triangulo = 'Isósceles'
+    
+    } else {
+        triangulo = 'Escaleno'
+    }
+
+    return triangulo
 }
 
 // EXERCÍCIO 10
