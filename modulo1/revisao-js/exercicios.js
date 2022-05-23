@@ -27,12 +27,30 @@ function retornaArrayOrdenado(array) {
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
+    let numerosPares = []
+    
+    array.map((item) => {
+        if(item % 2 === 0) {
+            numerosPares.push(item)
+        }
+    })
+
+    return numerosPares
   
 }
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
- 
+    let numerosParesElevadoADois = []
+    
+    array.map((item) => {
+        if(item % 2 === 0) {
+            let itemElevadoADois = item ** 2
+            numerosParesElevadoADois.push(itemElevadoADois)
+        }
+    })
+
+    return numerosParesElevadoADois
 }
 
 // EXERCÍCIO 06
