@@ -16,7 +16,13 @@ function retornaArrayInvertido(array) {
 
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
+    array.sort((num1, num2) => {
+        if(num1 > num2) return 1;
+        if(num1 < num2) return -1;
+        return 0
+    })
 
+    return array
 }
 
 // EXERCÍCIO 04
