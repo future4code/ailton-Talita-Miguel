@@ -213,12 +213,27 @@ function retornaPessoaAnonimizada(pessoa) {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-   
+    const pessoasAutorizadas = []
+    pessoas.map((item) => {
+        if(item.altura >= 1.5 && item.idade > 14 && item.idade < 60) {
+            return pessoasAutorizadas.push(item)
+        }
+    })
+
+    return pessoasAutorizadas
 }
 
 // EXERCÍCIO 13B
 function retornaPessoasNaoAutorizadas(pessoas) {
-  
+    const pessoasNaoAutorizadas = []
+    pessoas.map((item) => {
+        console.log(item)
+        if(item.altura < 1.5 || item.idade <= 14 || item.idade > 60) {
+            return pessoasNaoAutorizadas.push(item)
+        }
+    })
+
+    return pessoasNaoAutorizadas
 }
 
 // EXERCÍCIO 14
