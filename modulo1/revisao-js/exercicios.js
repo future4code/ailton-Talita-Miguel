@@ -122,78 +122,67 @@ function classificaTriangulo(ladoA, ladoB, ladoC) {
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
 
-    console.log('origi', array)
-    
-    const primeiroMaiorValor = () => {
-        let valor = -Infinity
-        let indexDoNumero
+    array.sort((num1, num2) => {
+        if(num1 > num2) return 1;
+        if(num1 < num2) return -1;
+        return 0
+    })
 
+    const retornaSegundoMaiorValor = () => {
+        let maiorValor
+        let maiorSegundoValor
+
+        console.log(array)
         for (let i = 0; i < array.length; i++) {
-            if(array[i] > valor) {
-                valor = array[i]
-            }
-        }
-    
-        indexDoNumero = array.indexOf(valor)
-    
-        array.splice(indexDoNumero, 1)
-
-    }
-
-    primeiroMaiorValor()
-
-
-    const segundoMaiorValor = () => {
-        let valor2 = -Infinity
-
-        for (let i = 0; i < array.length; i++) {
-            if(array[i] > valor2) {
-                valor2 = array[i]
-            }
+            
+            if(i === 0) {
+                maiorValor = array[i]
+            
+            } else if (maiorValor < array[i]) { 
+                maiorValor = array[i]
+                
+            } 
         }
 
-        return valor2
-
-    }
-
-    const segundoMaiorNumero = segundoMaiorValor()
-
-    const primeiroMenorValor = () => {
-        let valor = Infinity
-        let indexDoNumero
-
         for (let i = 0; i < array.length; i++) {
-            if(array[i] < valor) {
-                valor = array[i]
-            }
+            
+            if(i === 0) {
+                maiorSegundoValor = array[i]
+                
+            } else if (maiorSegundoValor <= array[i] && maiorValor !== array[i]) { 
+                maiorSegundoValor = array[i] 
+
+            } 
+
         }
-
-        indexDoNumero = array.indexOf(valor)
     
-        array.splice(indexDoNumero, 1)
-
+        return maiorSegundoValor
+        
     }
 
-    primeiroMenorValor()
-
-    const segundoMenorValor = () => {
-        let valor2 = Infinity
-
+    const retornaSegundoMenorValor = () => {
+        let menorValor
+        let menorSegundoValor
+    
         for (let i = 0; i < array.length; i++) {
-            if(array[i] < valor2) {
-                valor2 = array[i]
-            }
+        
+            if(i === 0) {
+                menorValor = array[i]
+                menorSegundoValor = array[i]
+
+            } else if (menorValor > array[i]) { 
+                menorValor = array[i]
+
+                
+            } else if (menorSegundoValor < array[i]) { 
+                menorSegundoValor = array[i]
+                return menorSegundoValor
+            } 
         }
-
-        return valor2
-
     }
 
-    const segundoMenorNumero = segundoMenorValor()
+    return[retornaSegundoMaiorValor(), retornaSegundoMenorValor()]
 
-    console.log(segundoMenorNumero)
-    
-    
 }
 
 // EXERCÍCIO 11
