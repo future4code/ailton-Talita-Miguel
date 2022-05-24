@@ -240,18 +240,10 @@ function retornaPessoasNaoAutorizadas(pessoas) {
 function retornaContasComSaldoAtualizado(contas) {
     
     for (const conta of contas) {
-        let atualizaSaldo
-        
         let totalCompras = 0
         for (const compra of conta.compras) {
             totalCompras += compra
         }
-
-        console.log(conta)
-        console.log(totalCompras)
-        console.log(conta.saldoTotal)
-
-        console.log(conta.saldoTotal - totalCompras)
 
         conta.saldoTotal = conta.saldoTotal - totalCompras
         conta.compras = []
@@ -264,10 +256,39 @@ function retornaContasComSaldoAtualizado(contas) {
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-  
+    const consultasEmOrdem = consultas.sort((nome1, nome2) => {
+        if(nome1.nome > nome2.nome) {
+            return 1
+        } else if (nome1.nome < nome2.nome) {
+            return -1
+        } else {
+            return 0
+        }
+    });
+    return consultasEmOrdem
 }
 
 // EXERCÍCIO 15B
 function retornaArrayOrdenadoPorData(consultas) {
-   
+    const ordenado = consultas.sort((a, b) => {
+        // Exemplo: 02/03/2022
+        const diaA = a.dataDaConsulta.substring(0, 2); // 02
+        const mesA = a.dataDaConsulta.substring(3, 5); // 03
+        const anoA = a.dataDaConsulta.substring(6, 10); // 2022
+        const dataA = new Date(anoA, mesA - 1, diaA); // subtrai 1 do mês porque começa a contar do 0 (jan = 0, fev = 1...)
+    
+        // Mesma coisa que o de cima, mas mais abreviado
+        const dB = b.dataDaConsulta;
+        const dataB = new Date(
+          dB.substring(6, 10),
+          dB.substring(3, 5) - 1,
+          dB.substring(0, 2)
+        );
+    
+        if (dataA > dataB) return 1;
+        if (dataA < dataB) return -1;
+        return 0;
+    });
+    
+    return ordenado;
 }
