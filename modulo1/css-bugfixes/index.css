@@ -150,6 +150,10 @@ td button:hover {
     background-color: #635a3d
 }
 
+.buy-table {
+    margin: 0 auto;
+}
+
 .buy-table > tbody > tr > td > img {
     width: 60px;
 }
