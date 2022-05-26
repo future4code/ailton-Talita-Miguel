@@ -67,6 +67,9 @@ div img {
   **/
 
 #container-de-descricao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: #2274a5;
     color: white;
 }
