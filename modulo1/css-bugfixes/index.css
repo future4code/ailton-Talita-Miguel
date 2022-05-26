@@ -10,7 +10,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
 }
 
 h2 {
@@ -51,7 +50,7 @@ div>p:first-child {
 }
 
 .container {
-    height: 500px;
+    height: 440px;
     text-align: center;
 }
 
@@ -109,6 +108,7 @@ div:last-child {
 table {
     width: 60%;
     text-align: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 td button {
@@ -130,10 +130,25 @@ td button:hover {
 .container-do-search {
     margin-top: 20px;
     height: 100px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .container-do-search > div > img {
     width: 30px;
+    object-fit: contain;
+}
+
+.container-do-search input {
+    border-top: 0 none;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-bottom: 1px solid black;
+}
+
+.back-button {
+    text-align: center;
+    margin: 100px 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 #back-button {
@@ -157,3 +172,4 @@ td button:hover {
 .buy-table > tbody > tr > td > img {
     width: 60px;
 }
+
