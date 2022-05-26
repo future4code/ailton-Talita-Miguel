@@ -74,6 +74,11 @@ div img {
     color: white;
 }
 
+#container-de-descricao > p {
+    width: 190px;
+    margin: 0 auto;
+}
+
 #container-de-descricao>ol {
     padding: 15px 0px;
 }
