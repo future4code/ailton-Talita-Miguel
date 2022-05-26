@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Roboto:wght@400;700;900&display=swap');
+
 /** 
   *
   *  ESTILOS GERAIS 
@@ -7,6 +9,8 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 h2 {
