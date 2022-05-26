@@ -78,8 +78,9 @@ div>p:first-child {
     margin: 0 auto;
 }
 
-#container-de-descricao>ol {
+#container-de-descricao > ol {
     padding: 15px 0px;
+    list-style-position: inside;
 }
 
 #container-para-comprar {
