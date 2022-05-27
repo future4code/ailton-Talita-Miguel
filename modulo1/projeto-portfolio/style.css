@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lobster&family=Noto+Sans:wght@400;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+div.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #F7F7F8;
+}
+
+header .banner-swish img {
+    width: 100vw;
+}
+
+header .banner-computer {
+    background-image: url(images/banner.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 84vh;
+}
+
+header .text-banner {
+    width: 35vw;
+    margin-top: -8px;
+    padding: 132px 0 0 150px;
+}
+
+header .text-banner p {
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    font-size: 23px;
+    line-height: 35px;
+    color: black;
+}
+
+header .my-photo {
+    width: 155px;
+    height: 155px;
+    margin: 20px auto;
+    border-radius: 30px;
+    background-color: #F7F7F8;
+}
+
+header .my-photo img {
+    width: 150px;
+    height: 150px;
+    margin: 2px;
+    border-radius: 30px;
+    object-fit: cover;
+    
+}
+
+main .schools {
+    width: 100vw;
+    height: 45vh;
+}
+
+main .schools h2 {
+    color: #332E33;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 35px;
+    padding: 35px 0;
+}
+
+main .schools ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+main .schools ul li {
+    width: 465px;
+    height: 50px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 42px;
+    list-style-position: inside;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #ffffff, #dfdede);
+    box-shadow:  20px 20px 60px #d3d2d2,
+    -20px -20px 60px #ffffff;
+    margin: 20px;
+}
+
+main .schools ul li:hover {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+main .projects {
+    width: 100vw;
+}
+
+main .projects h2 {
+    color: #332E33;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 35px;
+    padding: 35px 0;
+}
+
+main .projects .gallery-projects {
+    display: grid;
+    width: 500px;
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr 1fr;
+
+}
+
+.gallery-projects div > img {
+    width: 90px;
+}
+
+.gallery-projects div > p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.gallery-projects div > p > a { 
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
