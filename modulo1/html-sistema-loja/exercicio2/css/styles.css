@@ -1,0 +1,198 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* CABEÇALHO */
+
+.index-body header,
+.estoque-body header,
+.add-produto-body header,
+.funcionarios-body header,
+.add-vendas-body header {
+    height: 100px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.index-body header .carrinho img,
+.estoque-body header .carrinho img,
+.add-produto-body header .carrinho img,
+.funcionarios-body header .carrinho img,
+.add-vendas-body header .carrinho img {
+    width: 50px;
+    margin-left: 12px;
+}
+
+.index-body nav,
+.estoque-body nav,
+.add-produto-body nav,
+.funcionarios-body nav,
+.add-vendas-body nav {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: tomato;
+    height: 40px;
+}
+
+.index-body nav a,
+.estoque-body nav a,
+.add-produto-body nav a,
+.funcionarios-body nav a,
+.add-vendas-body nav a {
+    font-size: 22px;
+    color: white;
+    margin: 0 8px;
+}
+
+/* PAGE - INDEX  */
+
+.index-body main {
+    height: calc(100vh - 230px);
+}
+
+.index-body footer {
+    text-align: center;
+    background-color: #ccc;
+    height: 90px;
+    padding: 10px;
+}
+
+.index-body footer p {
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: bold;
+}
+
+.index-body footer img {
+    width: 40px;
+    padding-top: 6px;
+    margin-left: 8px;
+}
+
+/* PAGE - ESTOQUE */
+
+.estoque-body main h2 {
+    text-align: center;
+    font-size: 32px;
+    line-height: 42px;
+}
+
+.estoque-body main table {
+    text-align: center;
+    width: 800px;
+    margin: 16px auto 0;
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    border-spacing: 0px;
+}
+
+.estoque-body table .header-table {
+    font-size: 18px;
+    font-weight: bold;
+    height: 30px;
+}
+
+.estoque-body table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.estoque-body table img {
+    width: 140px;
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+}
+
+/* PAGE - ADD-PRODUTO */
+
+.add-produto-body h2 {
+    text-align: center;
+    font-size: 32px;
+    line-height: 50px;
+}
+
+.add-produto-body form {
+    width: 600px;
+    margin: 12px auto 0;
+}
+
+.add-produto-body form .form-field {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    margin: 16px 0;
+}
+
+.add-produto-body form .form-field label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.add-produto-body form button {
+    width: 120px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* PAGE - FUNCIONARIOS */
+
+.funcionarios-body main h2 {
+    text-align: center;
+    font-size: 32px;
+    line-height: 42px;
+}
+
+.funcionarios-body main ul {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.funcionarios-body main ul li {
+   font-size: 18px;
+   font-weight: bold;
+   margin: 15px;
+}
+
+
+/* PAGE - VENDAS */
+
+.add-vendas-body h2 {
+    text-align: center;
+    font-size: 32px;
+    line-height: 42px;
+    margin: 12px 0;
+}
+
+.add-vendas-body form {
+    width: 600px;
+    margin: 12px auto 0;
+}
+
+.add-vendas-body form .form-field {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    margin: 16px 0;
+}
+
+.add-vendas-body form .form-field label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.add-vendas-body form button {
+    width: 120px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
+
