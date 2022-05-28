@@ -8,7 +8,7 @@
     <title>Talita Miguel | Front-end</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container-index">
         <header>
             <div class="banner-swish">
                 <img src="images/banner-swish.png" alt="Mesa com computador">
@@ -31,6 +31,13 @@
         </header>
 
         <main>
+            <nav>
+                <a href="index.html">Página Inicial</a>
+                <a href="projeto-blackjack.html">BlackJack</a>
+                <a href="projeto-foodfy.html">Foodfy</a>
+                <a href="projeto-sistema-loja.html">Sistema Loja</a>
+            </nav>
+
             <div class="schools">
                 <h2>Instituições de ensino que já cursei!</h2>
                 <ul>
@@ -56,19 +63,58 @@
                     </div>
                     <div>
                         <img src="images/textbook.png" alt="Livros"> 
-                        <p><a href="http://" target="_blank">BlackJack</a> </p>
+                        <p><a href="projeto-blackjack.html" target="_blank">BlackJack</a> </p>
                     </div>
                     <div>
                         <img src="images/estudando.png" alt="Mochila"> 
-                        <p><a href="http://" target="_blank">Sistema Loja</a></p>
+                        <p><a href="projeto-sistema-loja.html" target="_blank">Sistema Loja</a></p>
                     </div>
 
                 </div>
+            </div>
+
+            <div class="skills">
+                <h2>Minhas Habilidades</h2>
+                <ul>
+                    <li>Resolução de problemas -  é a função de uma pessoa programadora, abstrair
+                        problemas em soluções com tecnologia.</li>
+                    <li>Comunicação - Sei me comunicar com todos os tipos de pessoas.</li>
+                    <li>Foco e persistência - gostar de estudar e tenho muita persistência 
+                        para alcançar o resultado que desejo.
+                    </li>
                 
-                
+
+                </ul>
+            </div>
+
+            <div class="formulario">
+                <h2>Entre em Contato</h2>
+                <form action="">
+                    <div class="form-field">
+                        <label for="nome">Nome: </label>
+                        <input type="text" id="nome" name="nome">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email">E-mail: </label>
+                        <input type="email" id="email" name="email">
+                    </div>
+            
+                    <div>
+                        <textarea id="descricao" name="descricao" rows="5" cols="57">
+                        </textarea>
+                    </div>
+                    <button type="submit">Enviar</button>
+                </form>
             </div>
         </main>
-        <footer></footer>
+
+        <footer>
+            <p> Me siga nas redes sociais!</p>
+            <img src="images/facebook.png" class="face"/>
+            <img src="images/instagram.png" class="insta"/>
+            <img src="images/linkedin.png" class="linkedin"/>
+        </footer>
     </div>
     
 </body>
