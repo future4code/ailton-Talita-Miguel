@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="index.js"></script>
+    <title>Vendas dos Produto</title>
+</head>
+<body class="add-vendas-body">
+    <header>
+        <div>
+            <h1>Bem-vind@ ao <em>Mercado Avenida</em>!</h1>
+            <p>Compre com qualidade, compre aqui!</p>
+        </div>
+        <div class="carrinho">
+            <img src="img/carrinho-de-compras.png" alt="Carrinho de Compras">
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Página Inicial |</a>
+        <a href="ctrl-estoque.html">Controle de Estoque |</a>
+        <a href="add-produto.html">Adicionar Produto |</a>
+        <a href="funcionarios.html">Funcionários |</a>
+        <a href="vendas.html">Venda dos Produtos</a>
+    </nav>
+
+    
+    <h2>Adicionar Produtos Vendidos</h2>
+    <form onsubmit="return false;">
+        
+        <div class="form-field">
+            <label for="produto">Produto comprado: </label>
+            <input type="text" id="produto" name="produto">
+        </div>
+
+        <div class="form-field">
+            <label>Forma de pagamento:</label>
+
+            <div>
+                <input type="checkbox" id="dinheiro" name="pagamento" value="Dinheiro">
+                <label for="dinheiro">Dinheiro</label>
+
+                <input type="checkbox" id="cartao" name="pagamento" value="Cartão">
+                <label for="cartao">Cartão</label>
+            </div>
+        </div>
+
+        <!-- Adicione ao type do botão abaixo o valor para que ele submeta o formulário -->
+        <button type="submit" onclick="adicionarVendaDoProduto()">Adicionar</button>
+
+    </form>
+
+    <div id="listaProdutos">
+        <table>
+            <tbody id="linha">
+                <tr>
+                    <th>Produto</th>
+                    <th>Valor</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
