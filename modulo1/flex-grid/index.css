@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    height: 8vh;
+    justify-content: space-between;
+    align-items: center;
+    background: mediumvioletred;
+}
+
+header > div {
+    display: flex;
+    align-items: center;
+}
+
+header > div > img {
+    width: 20px;
+    height: 20px;
+    margin: 0 20px;
+}
+
+header > div > p {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+header > button {
+    margin: 0 20px;
+    padding: 0 6px;
+}
+
+main {
+    display: flex;
+    flex-grow: 1;
+}
+
+main > nav {
+    background: #f2d0e0;
+    width: 40vw;
+    height: 100%;
+}
+
+main > nav > a > div,
+main > nav > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+main > nav > a > div > img,
+main > nav > a > img {
+    width: 20px;
+    height: 20px;
+    margin: 10px 20px;
+}
+
+main .card {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    text-align: center;
+    padding: 20px 30px;
+    gap: 10px;
+}
+
+main .card img {
+    width: 100%;
+    height: 25vh;
+    object-fit: fill;
+}
+
+main .card h3 {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+main .card p {
+    width: 250px;
+    font-size: 16px;
+    margin: 10px auto;
+}
+
+main .card1,
+main .card2,
+main .card3,
+main .card4,
+main .card5,
+main .card6,
+main .card7 {
+    box-shadow: 2px 2px 2px 1px #A9A9A9;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    height: 6vh;
+    background: mediumvioletred;
+}
