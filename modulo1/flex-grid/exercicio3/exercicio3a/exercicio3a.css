@@ -5,6 +5,7 @@ body {
     margin: 0;
     font-size: 10px;
     color: white;
+    font-weight: bold;
 }
 
 .green-background {
@@ -48,15 +49,23 @@ body {
 }
 
 .green-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-grow: 1;
 }
 
 .yellow-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-grow: 5;
 }
 
 .pink-background {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-grow: 5;
 }
 
@@ -67,10 +76,6 @@ body {
 
 #content2 {
     flex-grow: 2;
-}
-
-.blue-background {
-    height: 100%;
 }
 
 #blank {
@@ -86,7 +91,10 @@ body {
     height: 50%;
 }
 
-.red-background, .lightgreen-background, .purple-background {
+.red-background, .lightgreen-background, .purple-background, .blue-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
 }
 
