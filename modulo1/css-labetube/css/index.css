@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 10vh 80vh 10vh;
+    grid-template-columns: 1fr;
+}
+
+header {
+    background-color: #79B5DB;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 60px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+header .logo img {
+    width: 30px;
+    margin: 0 18px;
+    border-radius: 10px;
+}
+
+header .logo p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+header > article > input {
+    margin: 0 20px;
+    height: 25px;
+    border-radius: 5px;
+    border: 0;
+    padding: 4px 8px;
+    color: black;
+    border: 1px solid #79B5DB;
+    
+}
+
+main .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 260px);
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    gap: 25px;
+}
+
+main .cards .card {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 8px 0;
+}
+
+.card:hover {
+    border-bottom: 4px solid #F77F29;
+    border-radius: 5px;
+}
+
+main .cards .card a {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+
+main .cards .card img { 
+    width: 260px;
+    height: 200px;
+    object-fit: cover;
+}
+
+main .cards .card figcaption {
+    width: 200px;
+    text-align: left;
+    padding: 6px 8px;
+} 
+
+footer {
+    background: #79B5DB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer article {
+    display: flex;
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+
+footer img {
+    width: 30px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+
+/**** PAGE - DETALHE_VIDEO ****/
+
+.main-detalhe {
+    text-align: center;
+}
+
+.main-detalhe h1 {
+    margin: 10px 75px;
+}
+
+video {
+    width: 56vw;
+}
