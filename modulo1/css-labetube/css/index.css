@@ -7,6 +7,8 @@
 }
 
 .container {
+    max-width: 1400px;
+    margin: 0 auto;
     display: grid;
     grid-template-rows: 10vh 80vh 10vh;
     grid-template-columns: 1fr;
@@ -52,6 +54,11 @@ header > article > input {
     
 }
 
+main {
+    display: grid;
+    align-content: center;
+}
+
 main .cards {
     display: grid;
     grid-template-columns: repeat(4, 260px);
@@ -80,8 +87,8 @@ main .cards .card a {
 }
 
 main .cards .card img { 
-    width: 260px;
-    height: 200px;
+    width: 100%;
+    height: 180px;
     object-fit: cover;
 }
 
@@ -125,4 +132,99 @@ footer img {
 
 video {
     width: 56vw;
+    margin: 0 auto;
 }
+
+/*** @MEDIA ***/
+
+@media screen and (max-width: 600px) {
+    .container {
+        grid-template-rows: 70px 1fr 70px;
+    }
+   
+    header .logo a {
+        padding: 0;
+    }
+
+    header .logo p {
+        font-size: 20px;
+    }
+
+    header > article > input {
+        width: 150px;
+    }
+
+    main .cards {
+        grid-template-columns: 1fr;
+        margin-bottom: 20px;
+    }
+
+    main .cards .card {
+        width: 90vw;
+        margin: 20px auto 0;
+    }
+
+    /*** detalhe_video ***/
+
+    #detalheVideo {
+        grid-template-rows: 10vh 80vh 10vh;
+    }
+    
+    .main-detalhe h1 {
+        margin: 35px 70px 10px;
+    }
+
+    video {
+        width: 90%;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 800px) {
+    .container {
+        grid-template-rows: 70px 1fr 70px;
+    }
+
+    main .cards {
+        grid-template-columns: repeat(2, 260px);
+    }
+
+    /*** detalhe_video ***/
+
+    #detalheVideo {
+        grid-template-rows: 10vh 80vh 10vh;
+    }
+    
+    .main-detalhe h1 {
+        margin: 35px 70px 10px;
+    }
+
+    video {
+        width: 85%;
+    }
+}
+
+@media screen and (min-width: 801px) and (max-width: 1200px) {
+    .container {
+        grid-template-rows: 70px 1fr 70px;
+    }
+
+    main .cards {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    /*** detalhe_video ***/
+
+    #detalheVideo {
+        grid-template-rows: 10vh 80vh 10vh;
+    }
+    
+    .main-detalhe h1 {
+        margin: 20px 70px 10px;
+    }
+
+    video {
+        width: 67%;
+    }
+}
+
+
