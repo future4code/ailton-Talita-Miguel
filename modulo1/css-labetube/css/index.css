@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: 10vh 80vh 10vh;
+    grid-template-columns: 1fr;
+}
+
+header {
+    background-color: #79B5DB;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .logo a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 60px;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+header .logo img {
+    width: 30px;
+    margin: 0 18px;
+    border-radius: 10px;
+}
+
+header .logo p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+header > article > input {
+    margin: 0 20px;
+    height: 25px;
+    border-radius: 5px;
+    border: 0;
+    padding: 4px 8px;
+    color: black;
+    border: 1px solid #79B5DB;
+    
+}
+
+main {
+    display: grid;
+    align-content: center;
+}
+
+main .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 260px);
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    gap: 25px;
+}
+
+main .cards .card {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 8px 0;
+}
+
+.card:hover {
+    border-bottom: 4px solid #F77F29;
+    border-radius: 5px;
+}
+
+main .cards .card a {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+
+main .cards .card img { 
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+main .cards .card figcaption {
+    width: 200px;
+    text-align: left;
+    padding: 6px 8px;
+} 
+
+footer {
+    background: #79B5DB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer article {
+    display: flex;
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+
+footer img {
+    width: 30px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+
+/**** PAGE - DETALHE_VIDEO ****/
+
+.main-detalhe {
+    text-align: center;
+}
+
+.main-detalhe h1 {
+    margin: 10px 75px;
+}
+
+video {
+    width: 56vw;
+    margin: 0 auto;
+}
+
+/*** @MEDIA ***/
+
+@media screen and (max-width: 600px) {
+    .container {
+        grid-template-rows: 70px 1fr 70px;
+    }
+   
+    header .logo a {
+        padding: 0;
+    }
+
+    header .logo p {
+        font-size: 20px;
+    }
+
+    header > article > input {
+        width: 150px;
+    }
+
+    main .cards {
+        grid-template-columns: 1fr;
+        margin-bottom: 20px;
+    }
+
+    main .cards .card {
+        width: 90vw;
+        margin: 20px auto 0;
+    }
+
+    /*** detalhe_video ***/
+
+    #detalheVideo {
+        grid-template-rows: 10vh 80vh 10vh;
+    }
+    
+    .main-detalhe h1 {
+        margin: 35px 70px 10px;
+    }
+
+    video {
+        width: 90%;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 800px) {
+    .container {
+        grid-template-rows: 70px 1fr 70px;
+    }
+
+    main .cards {
+        grid-template-columns: repeat(2, 260px);
+    }
+
+    /*** detalhe_video ***/
+
+    #detalheVideo {
+        grid-template-rows: 10vh 80vh 10vh;
+    }
+    
+    .main-detalhe h1 {
+        margin: 35px 70px 10px;
+    }
+
+    video {
+        width: 85%;
+    }
+}
+
+@media screen and (min-width: 801px) and (max-width: 1200px) {
+    .container {
+        grid-template-rows: 70px 1fr 70px;
+    }
+
+    main .cards {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    /*** detalhe_video ***/
+
+    #detalheVideo {
+        grid-template-rows: 10vh 80vh 10vh;
+    }
+    
+    .main-detalhe h1 {
+        margin: 20px 70px 10px;
+    }
+
+    video {
+        width: 65%;
+    }
+}
+
+
