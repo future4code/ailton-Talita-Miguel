@@ -114,13 +114,13 @@ const desejaComprarMaisCartas = (cartaUsuario, cartaComputador, suasCartasSao) =
       console.log('confirmação3', confirmacao)
       darNovaCarta(cartaUsuario)
       
-      // confirmacao = confirm(`
-      // Suas cartas são ${suasCartasSao} 
-      // A carta revelada do computador é ${cartaComputador[0].texto}.
-      // Deseja comprar mais uma carta?
-      // `)
-      // darNovaCarta(cartaUsuario)
-      // console.log('******')
+      confirmacao = confirm(`
+      Suas cartas são ${suasCartasSao} 
+      A carta revelada do computador é ${cartaComputador[0].texto}.
+      Deseja comprar mais uma carta?
+      `)
+      darNovaCarta(cartaUsuario)
+      console.log('******')
       
    } else {
       suasCartasSao.push(cartaUsuario[0].texto)
