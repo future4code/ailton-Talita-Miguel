@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
-import DetailUser from '../../components/DetailUser/DetailUser';
+import DetailUser from "../../components/DetailUser/DetailUser";
 
 const UserListContainer = styled.div`
-    display: block;
+  display: block;
 `;
 
 const List = styled.div`
@@ -34,7 +34,7 @@ const ButtonRemove = styled.button`
 class UsersList extends React.Component {
   state = {
     page: "listUsers",
-    userId: ''
+    userId: "",
   };
 
   userDelete = (userId, userName) => {
@@ -61,11 +61,11 @@ class UsersList extends React.Component {
   };
 
   changePage = (idUser) => {
-    this.setState({ userId: idUser})
+    this.setState({ userId: idUser });
     if (this.state.currentPage === "listUsers") {
-      this.setState({ currentPage: "detailUser"});
+      this.setState({ currentPage: "detailUser" });
     } else {
-      this.setState({ currentPage: "listUsers"});
+      this.setState({ currentPage: "listUsers" });
     }
   };
 
@@ -73,22 +73,22 @@ class UsersList extends React.Component {
     return (
       <UserListContainer>
         {this.state.currentPage !== "listUsers" ? (
-            <section>
+          <section>
             {this.props.listUser.map((user) => {
-                return (
+              return (
                 <List key={user.id} onClick={() => this.changePage(user.id)}>
-                    <p>{user.name}</p>
-                    <ButtonRemove
+                  <p>{user.name}</p>
+                  <ButtonRemove
                     onClick={() => this.userDelete(user.id, user.name)}
-                    >
+                  >
                     X
-                    </ButtonRemove>
+                  </ButtonRemove>
                 </List>
-                );
+              );
             })}
-            </section>
+          </section>
         ) : (
-            <DetailUser userId={this.state.userId} changePage={this.changePage}/>
+          <DetailUser userId={this.state.userId} changePage={this.changePage} />
         )}
       </UserListContainer>
     );
