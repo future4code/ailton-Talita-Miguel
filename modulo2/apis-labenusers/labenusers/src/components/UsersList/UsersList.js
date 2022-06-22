@@ -10,14 +10,12 @@ const UserListContainer = styled.div`
 const List = styled.div`
   display: flex;
   padding: 16px;
-  border: 1px solid #1c1c1c;
-  box-shadow: 2px 2px 2px 3px #1c1c1c;
   margin: 18px 0;
+  width: 100%;
+  border: 1px solid #1c1c1c;
+  justify-content: space-between;
+  box-shadow: 2px 2px 2px 3px #1c1c1c;
   cursor: pointer;
-
-  p {
-    width: 100px;
-  }
 `;
 
 const ButtonRemove = styled.button`
@@ -31,64 +29,95 @@ const ButtonRemove = styled.button`
   }
 `;
 
+const ButtonChange = styled.button`
+  margin: 20px 0;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  background-color: #f07cbd;
+  box-shadow: 2px 2px 2px 1px #f46cb9;
+`;
+
 class UsersList extends React.Component {
   state = {
     page: "listUsers",
     userId: "",
+    userName: "",
   };
 
-  userDelete = (userId, userName) => {
+  componentDidUpdate() {
+    this.changePage();
+  }
+
+  userDelete = async (user) => {
+    console.log(user);
+    const url = `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${user.id}`;
+    const headers = {
+      headers: {
+        Authorization: "talita-miguel-ailton",
+      },
+    };
+
     if (
-      window.confirm(`Tem certeza que deseja remover ${userName} da lista?`)
+      window.confirm(`Tem certeza que deseja remover ${user.name} da lista?`)
     ) {
-      axios
-        .delete(
-          `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${userId}`,
-          {
-            headers: {
-              Authorization: "talita-miguel-ailton",
-            },
-          }
-        )
-        .then(() => {
-          alert(`${userName} removido com sucesso!`);
-          this.props.getUserlists();
-        })
-        .catch((e) => {
-          alert("Ocorreu um erro");
-        });
+      try {
+        const response = await axios.delete(url, headers);
+        alert(`${user.name} removido com sucesso!`);
+        this.props.getUserlists();
+      } catch (error) {
+        alert("Ocorreu um erro");
+      }
     }
   };
 
-  changePage = (idUser) => {
-    this.setState({ userId: idUser });
-    if (this.state.currentPage === "listUsers") {
-      this.setState({ currentPage: "detailUser" });
-    } else {
-      this.setState({ currentPage: "listUsers" });
+  goToListUsers = () => {
+    this.setState({ page: "listUsers", userId: "" });
+  };
+
+  changePage = () => {
+    if (this.state.page === "detailUser") {
+      return (
+        <DetailUser
+          userId={this.state.userId}
+          userName={this.state.userName}
+          goToListUsers={this.goToListUsers}
+          getUserlists={this.props.getUserlists()}
+        />
+      );
     }
   };
 
   render() {
+    const goToDetailUser = (user) => {
+      this.setState({ page: "detailUser", userId: user.id, userName: user.name });
+    };
+
+    const listUsers = this.props.listUser.map((user) => {
+      return (
+        <List key={user.id}>
+          <div onClick={() => goToDetailUser(user)}>
+            <p>{user.name}</p>
+          </div>
+          <ButtonRemove onClick={() => this.userDelete(user)}>X</ButtonRemove>
+        </List>
+      );
+    });
+
     return (
       <UserListContainer>
-        {this.state.currentPage !== "listUsers" ? (
-          <section>
-            {this.props.listUser.map((user) => {
-              return (
-                <List key={user.id} onClick={() => this.changePage(user.id)}>
-                  <p>{user.name}</p>
-                  <ButtonRemove
-                    onClick={() => this.userDelete(user.id, user.name)}
-                  >
-                    X
-                  </ButtonRemove>
-                </List>
-              );
-            })}
-          </section>
+        {this.state.page === "listUsers" ? (
+          <>
+            <ButtonChange onClick={this.props.goToCreateUser}>
+              Ir para cadastro de Usuários
+            </ButtonChange>
+            <h2>Lista de Usuário</h2>
+            <div>{listUsers}</div>
+          </>
         ) : (
-          <DetailUser userId={this.state.userId} changePage={this.changePage} />
+          this.changePage()
         )}
       </UserListContainer>
     );

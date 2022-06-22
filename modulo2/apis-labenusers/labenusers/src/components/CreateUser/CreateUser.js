@@ -12,6 +12,17 @@ const Input = styled.input`
   border-radius: 5px;
 `;
 
+const ButtonChange = styled.button`
+  margin: 20px 0;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  background-color: #f07cbd;
+  box-shadow: 2px 2px 2px 1px #f46cb9;
+`;
+
 const ButtonAdd = styled.button`
   margin-top: 20px;
   padding: 5px 8px;
@@ -29,55 +40,56 @@ class CreateUser extends React.Component {
     inputEmail: "",
   };
 
-  onChangeInputName = (event) => {
+  handleName = (event) => {
     this.setState({ inputName: event.target.value });
   };
 
-  onChangeInputEmail = (event) => {
+  handleEmail = (event) => {
     this.setState({ inputEmail: event.target.value });
   };
 
-  createUsers = () => {
+  createUsers = async () => {
+    const url =
+      "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users";
     const body = {
       name: this.state.inputName,
       email: this.state.inputEmail,
     };
+    const headers = {
+      headers: {
+        Authorization: "talita-miguel-ailton",
+      },
+    };
 
-    axios
-      .post(
-        "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users",
-        body,
-        {
-          headers: {
-            Authorization: "talita-miguel-ailton",
-          },
-        }
-      )
-      .then((response) => {
-        this.props.getUserlists();
-        alert("Operação realizado com sucesso!");
-      })
-      .catch((error) => {
-        console.log(error.message);
-        alert("Ocorreu um erro!");
-      });
+    try {
+      const response = await axios.post(url, body, headers);
+      this.props.getUserlists();
+      alert("Cadastro realizado com sucesso!");
+      this.setState({ inputName: "", inputEmail: "" });
+    } catch (error) {
+      alert("Ocorreu um erro, tente novamente!");
+    }
   };
 
   render() {
     return (
       <CreateUserContainer>
+        <ButtonChange onClick={this.props.goToUsersList}>
+          Ir para lista de Usuários
+        </ButtonChange>
+        <h2>Cadastro de Usuário</h2>
         <section>
           <Input
             type={"text"}
             value={this.state.inputName}
-            onChange={this.onChangeInputName}
+            onChange={this.handleName}
             placeholder={"Nome"}
           />
 
           <Input
             type={"email"}
             value={this.state.inputEmail}
-            onChange={this.onChangeInputEmail}
+            onChange={this.handleEmail}
             placeholder={"E-mail"}
           />
 

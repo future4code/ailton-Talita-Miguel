@@ -1,8 +1,8 @@
-import "./App.css";
 import React from "react";
 import axios from "axios";
 import CreateUser from "./components/CreateUser/CreateUser";
 import UsersList from "./components/UsersList/UsersList";
+import GlobalStyle from "./globalStyles";
 import styled from "styled-components";
 
 const AppContainer = styled.div`
@@ -31,70 +31,68 @@ const AppContainer = styled.div`
   );
 `;
 
-const ButtonChange = styled.button`
-  margin-top: 20px;
-  padding: 8px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: bold;
-  background-color: #f07cbd;
-  box-shadow: 2px 2px 2px 1px #f46cb9;
-`;
-
 class App extends React.Component {
   state = {
-    listUser: [],
     currentPage: "createUser",
-  };
-
-  changePage = () => {
-    if (this.state.currentPage === "createUser") {
-      this.setState({ currentPage: "usersList" });
-    } else {
-      this.setState({ currentPage: "createUser" });
-    }
+    listUser: [],
   };
 
   componentDidMount() {
     this.getUserlists();
   }
 
-  getUserlists = () => {
-    axios
-      .get(
-        "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users",
-        {
-          headers: {
-            Authorization: "talita-miguel-ailton",
-          },
-        }
-      )
-      .then((response) => {
-        this.setState({ listUser: response.data });
-      })
-      .catch((error) => {
-        console.log(error.message);
-        alert("Ocorreu um erro!");
-      });
+  getUserlists = async () => {
+    const url =
+      "https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users";
+    const headers = {
+      headers: {
+        Authorization: "talita-miguel-ailton",
+      },
+    };
+
+    try {
+      const response = await axios.get(url, headers);
+      this.setState({ listUser: response.data });
+    } catch (error) {
+      alert("Ocorreu um erro, tente novamente!");
+    }
+  };
+
+  changePage = () => {
+    switch (this.state.currentPage) {
+      case "createUser":
+        return (
+          <CreateUser
+            getUserlists={this.getUserlists}
+            goToUsersList={this.goToUsersList}
+          />
+        );
+      case "usersList":
+        return (
+          <UsersList
+            listUser={this.state.listUser}
+            getUserlists={this.getUserlists}
+            goToCreateUser={this.goToCreateUser}
+          />
+        );
+      default:
+        return <div>Erro! Página não encontrada</div>;
+    }
+  };
+
+  goToCreateUser = () => {
+    this.setState({ currentPage: "createUser" });
+  };
+
+  goToUsersList = () => {
+    this.setState({ currentPage: "usersList" });
   };
 
   render() {
     return (
       <AppContainer>
-        {this.state.currentPage === "createUser" ? (
-          <CreateUser getUserlists={this.getUserlists} />
-        ) : (
-          <UsersList
-            listUser={this.state.listUser}
-            getUserlists={this.getUserlists}
-          />
-        )}
-        <ButtonChange onClick={this.changePage}>
-          {this.state.currentPage === "createUser"
-            ? "Lista de usuários"
-            : "Cadastro de usuário"}
-        </ButtonChange>
+        <GlobalStyle />
+        {this.changePage()}
       </AppContainer>
     );
   }
