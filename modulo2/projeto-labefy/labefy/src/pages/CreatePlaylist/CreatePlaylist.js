@@ -2,7 +2,13 @@ import axios from "axios";
 import React from "react";
 import { BASE_URL } from "../../constants/urls";
 import { HEADERS } from "../../constants/headers";
-import { CreateUserContainer, Input, ButtonAdd } from "./styled";
+import {
+  CreateUserContainer,
+  Input,
+  ButtonAdd,
+  AddPlay,
+  InfoAddPlay,
+} from "./styled";
 
 export default class CreatePlaylist extends React.Component {
   state = {
@@ -33,8 +39,8 @@ export default class CreatePlaylist extends React.Component {
   render() {
     return (
       <CreateUserContainer>
-        <h2>Cadastrar Playlist</h2>
-        <section>
+        <AddPlay>Cadastre uma Playlist 🎶</AddPlay>
+        <InfoAddPlay>
           <Input
             type={"text"}
             value={this.state.namePlaylist}
@@ -43,7 +49,7 @@ export default class CreatePlaylist extends React.Component {
           />
 
           <ButtonAdd onClick={this.createPlaylist}>Adicionar</ButtonAdd>
-        </section>
+        </InfoAddPlay>
       </CreateUserContainer>
     );
   }

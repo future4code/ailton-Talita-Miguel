@@ -6,6 +6,7 @@ import { HEADERS } from "./constants/headers";
 
 import PlaylistDetailPage from "./pages/PlaylistDetailPage/PlaylistDetailPage";
 import PlaylistListPage from "./pages/PlaylistListPage/PlaylistListPage";
+import GlobalStyle from "./globalStyles";
 
 export default class App extends React.Component {
   state = {
@@ -29,13 +30,11 @@ export default class App extends React.Component {
   };
 
   getPlaylistSongsList = async (idPlayList) => {
-    console.log(idPlayList)
     try {
       const response = await axios.get(
         `${BASE_URL}/${idPlayList}/tracks`,
         HEADERS
       );
-      console.log(response.data.result.tracks)
       this.setState({ songsList: response.data.result.tracks });
     } catch (error) {
       alert("Ocorreu um erro, tente novamente!");
@@ -80,6 +79,11 @@ export default class App extends React.Component {
   };
 
   render() {
-    return <div>{this.selectPage()}</div>;
+    return (
+      <div>
+        <GlobalStyle />
+        {this.selectPage()}
+      </div>
+    );
   }
 }

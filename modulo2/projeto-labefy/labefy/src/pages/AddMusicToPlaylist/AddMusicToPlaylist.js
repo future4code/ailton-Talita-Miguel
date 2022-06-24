@@ -4,7 +4,7 @@ import axios from "axios";
 import { BASE_URL } from "../../constants/urls";
 import { HEADERS } from "../../constants/headers";
 
-import { AddMusicContainer, Input, ButtonAdd } from "./styled";
+import { AddMusicContainer, Input, ButtonAdd, Title, Fields } from "./styled";
 
 export default class AddMusicToPlaylist extends React.Component {
   state = {
@@ -26,20 +26,20 @@ export default class AddMusicToPlaylist extends React.Component {
   };
 
   addMusic = async () => {
-
-    const idPlayList = this.props.selectedPlaylist.id
+    const idPlayList = this.props.selectedPlaylist.id;
 
     const body = {
-      name: this.state.name, 
+      name: this.state.name,
       artist: this.state.artist,
-      url: this.state.url
+      url: this.state.url,
     };
-  
+
     try {
-      const results = await axios.post(`${BASE_URL}/${idPlayList}/tracks`, body, HEADERS);
-      console.log(results)
+      await axios.post(`${BASE_URL}/${idPlayList}/tracks`, body, HEADERS);
       this.props.getPlaylistSongsList(idPlayList);
-      alert(`Musica cadastrada na playlist ${this.props.selectedPlaylist.name} com sucesso!`);
+      alert(
+        `Musica cadastrada na playlist ${this.props.selectedPlaylist.name} com sucesso!`
+      );
       this.setState({ name: "", artist: "", url: "" });
     } catch (error) {
       alert("Ocorreu um erro, tente novamente!");
@@ -47,9 +47,12 @@ export default class AddMusicToPlaylist extends React.Component {
   };
 
   render() {
-    return <AddMusicContainer>
-      <h2>Adicione uma música na playlist: {this.props.selectedPlaylist.name}</h2>
-        <section>
+    return (
+      <AddMusicContainer>
+        <Title>
+          Adicione uma música na playlist: {this.props.selectedPlaylist.name}
+        </Title>
+        <Fields>
           <Input
             type={"text"}
             value={this.state.name}
@@ -72,7 +75,8 @@ export default class AddMusicToPlaylist extends React.Component {
           />
 
           <ButtonAdd onClick={this.addMusic}>Adicionar</ButtonAdd>
-        </section>
-    </AddMusicContainer>
+        </Fields>
+      </AddMusicContainer>
+    );
   }
 }
