@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const MatchesContainer = styled.div`
   width: 100%;
 `;
@@ -31,7 +30,7 @@ export const Info = styled.div`
     font-family: "Pacifico", cursive;
   }
 
-  &:hover{
+  &:hover {
     border: 1px solid #ccc;
   }
 `;
@@ -41,7 +40,7 @@ export const InfoDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 export const TrashImg = styled.img`
   width: 30px;

@@ -1,12 +1,6 @@
 import React, { useEffect } from "react";
 import Trash from "../../assets/img/trash.png";
-import {
-  MatchesContainer,
-  Section,
-  Info,
-  PersonImg,
-  TrashImg
-} from "./styled";
+import { MatchesContainer, Section, Info, PersonImg, TrashImg } from "./styled";
 
 function MatchesPage({ clearList, getMatches, listPersonMatches }) {
   useEffect(() => {

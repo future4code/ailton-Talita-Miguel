@@ -9,9 +9,9 @@ import {
   Section,
   Info,
   PersonImg,
-  TrashImg
+  TrashImg,
 } from "./styled";
-import Trash from "../../assets/img/trash.png"
+import Trash from "../../assets/img/trash.png";
 import Heart from "../../assets/img/heart.png";
 import No from "../../assets/img/no.png";
 
@@ -29,7 +29,7 @@ const ProfileToChoose = ({ clearList }) => {
         setPerson(response.data.profile);
       })
       .catch((error) => {
-        console.log("personInfos:", error.message);
+        console.log("ProfileToChoose:", error.message);
       });
   };
 
@@ -49,7 +49,7 @@ const ProfileToChoose = ({ clearList }) => {
         ProfileToChoose();
       })
       .catch((error) => {
-        console.log("match:", error.message);
+        console.log("choosePerson:", error.message);
       });
   };
 
@@ -76,7 +76,7 @@ const ProfileToChoose = ({ clearList }) => {
               onClick={() => choosePerson(false)}
             />
 
-            <TrashImg src={Trash} alt="Trash" onClick={clearList}/>
+            <TrashImg src={Trash} alt="Trash" onClick={clearList} />
           </ChooseContainer>
         </Info>
       </Section>

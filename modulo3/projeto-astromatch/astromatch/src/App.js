@@ -79,7 +79,7 @@ function App() {
             alert(
               `Todos os matches e perfis vistos foram removidos com sucesso!`
             );
-            getMatches()
+            getMatches();
           }
         })
         .catch((error) => {
@@ -101,9 +101,17 @@ function App() {
         </div>
       </Header>
       {matches ? (
-        <MatchesPage clearList={clearList} getMatches={getMatches} listPersonMatches={listPersonMatches}/>
+        <MatchesPage
+          clearList={clearList}
+          getMatches={getMatches}
+          listPersonMatches={listPersonMatches}
+        />
       ) : (
-        <ProfileToChoosePage clearList={clearList} getMatches={getMatches} listPersonMatches={listPersonMatches}/>
+        <ProfileToChoosePage
+          clearList={clearList}
+          getMatches={getMatches}
+          listPersonMatches={listPersonMatches}
+        />
       )}
     </AppContainer>
   );
