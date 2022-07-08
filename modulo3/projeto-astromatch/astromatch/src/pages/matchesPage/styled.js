@@ -43,7 +43,7 @@ export const InfoDiv = styled.div`
 `;
 
 export const TrashImg = styled.img`
-  width: 30px;
+  width: 40px;
   padding: 10px;
 
   &:hover {

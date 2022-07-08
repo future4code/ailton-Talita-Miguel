@@ -12,15 +12,37 @@ export const Section = styled.section`
 `;
 
 export const PersonImg = styled.img`
-  height: 70vh;
-  width: 100%;
-  object-fit: fill;
-  overflow: hidden;
-  box-shadow: 2px 2px 8px 2px #ccc;
+  object-fit: cover;
+    width: 100%;
+    display: block;
+    height: 430px;
+    box-shadow: 2px 2px 8px 2px #dcdcdc;
+    ${({isMatch, left}) => isMatch && 
+    `animation: ${left === 'left' ? 'RotateLeft' : 'RotateRight'} 1s ease-in;
+    `}
+
+@keyframes RotateRight {
+      100%{
+        transform: rotate(10deg) translate3d(200px, 0, 0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes RotateLeft {
+      100%{
+        transform: rotate(-10deg) translate3d(-200px, 0, 0);
+        opacity: 0;
+      }
+    }
 `;
 
+export const DivImg = styled.div`
+  height: 500px; 
+  width: 390px;
+`
+
 export const Info = styled.div`
-  margin-top: -177px;
+  margin-top: -130px;
   width: 100%;
   background: rgba(204, 204, 204, 0.19);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -43,7 +65,7 @@ export const ChooseContainer = styled.div`
 `;
 
 export const HeartImg = styled.img`
-  width: 30px;
+  width: 40px;
   padding: 10px;
 
   &:hover {
@@ -53,7 +75,7 @@ export const HeartImg = styled.img`
 `;
 
 export const NoImg = styled.img`
-  width: 30px;
+  width: 40px;
   padding: 10px;
   &:hover {
     border: 1px solid black;
@@ -62,7 +84,7 @@ export const NoImg = styled.img`
 `;
 
 export const TrashImg = styled.img`
-  width: 30px;
+  width: 40px;
   padding: 10px;
   &:hover {
     border: 1px solid black;

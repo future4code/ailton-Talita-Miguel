@@ -6,25 +6,35 @@ import MatchesPage from "./pages/matchesPage/MatchesPage";
 import Love from "./assets/img/love.png";
 import Couple from "./assets/img/couple.png";
 import styled from "styled-components";
+import GlobalStyle from "./assets/theme/globalStyles";
 
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 390px;
   margin: 45px auto 0;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const Header = styled.div`
   display: flex;
   width: 100%;
-  margin-bottom: 16px;
   justify-content: space-evenly;
   align-items: center;
-  box-shadow: 2px 2px 8px 2px #ccc;
-  border: 5px solid;
-  border-image: linear-gradient(45deg, #ccc, black) 1;
+  padding: 8px;
+  box-shadow: 2px 2px 8px 2px #DCDCDC;
+  border-bottom: 1px solid #ccc;
+  /* border: 3px solid; */
+  /* border-image: linear-gradient(45deg, #ccc, black) 1; */
+
+
+
+
 `;
 
 const LoveImg = styled.img`
@@ -90,30 +100,31 @@ function App() {
 
   return (
     <AppContainer>
-      <Header>
-        <h1>AstroMatch</h1>
-        <div>
-          {matches ? (
-            <CoupleImg src={Couple} onClick={goToHomePage} />
-          ) : (
-            <LoveImg src={Love} onClick={goToMatchesPage} />
-          )}
-        </div>
-      </Header>
-      {matches ? (
-        <MatchesPage
-          clearList={clearList}
-          getMatches={getMatches}
-          listPersonMatches={listPersonMatches}
-        />
-      ) : (
-        <ProfileToChoosePage
-          clearList={clearList}
-          getMatches={getMatches}
-          listPersonMatches={listPersonMatches}
-        />
-      )}
-    </AppContainer>
+        <GlobalStyle />
+        <Header>
+          <h1>AstroMatch</h1>
+          <div>
+            {matches ? (
+              <CoupleImg src={Couple} onClick={goToHomePage} />
+            ) : (
+              <LoveImg src={Love} onClick={goToMatchesPage} />
+            )}
+          </div>
+        </Header>
+        {matches ? (
+          <MatchesPage
+            clearList={clearList}
+            getMatches={getMatches}
+            listPersonMatches={listPersonMatches}
+          />
+        ) : (
+          <ProfileToChoosePage
+            clearList={clearList}
+            getMatches={getMatches}
+            listPersonMatches={listPersonMatches}
+          />
+        )}
+      </AppContainer>
   );
 }
 
