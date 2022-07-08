@@ -13,33 +13,36 @@ export const Section = styled.section`
 
 export const PersonImg = styled.img`
   object-fit: cover;
-    width: 100%;
-    display: block;
-    height: 430px;
-    box-shadow: 2px 2px 8px 2px #dcdcdc;
-    ${({isMatch, left}) => isMatch && 
-    `animation: ${left === 'left' ? 'RotateLeft' : 'RotateRight'} 1s ease-in;
+  width: 100%;
+  display: block;
+  height: 430px;
+  box-shadow: 2px 2px 8px 2px #dcdcdc;
+  ${({ isMatch, wichSide }) =>
+    isMatch &&
+    `animation: ${
+      wichSide === "left" ? "RotateLeft" : "RotateRight"
+    } 1s ease-in;
     `}
 
-@keyframes RotateRight {
-      100%{
-        transform: rotate(10deg) translate3d(200px, 0, 0);
-        opacity: 0;
-      }
+  @keyframes RotateRight {
+    100% {
+      transform: rotate(10deg) translate3d(200px, 0, 0);
+      opacity: 0;
     }
+  }
 
-    @keyframes RotateLeft {
-      100%{
-        transform: rotate(-10deg) translate3d(-200px, 0, 0);
-        opacity: 0;
-      }
+  @keyframes RotateLeft {
+    100% {
+      transform: rotate(-10deg) translate3d(-200px, 0, 0);
+      opacity: 0;
     }
+  }
 `;
 
 export const DivImg = styled.div`
-  height: 500px; 
+  height: 500px;
   width: 390px;
-`
+`;
 
 export const Info = styled.div`
   margin-top: -130px;

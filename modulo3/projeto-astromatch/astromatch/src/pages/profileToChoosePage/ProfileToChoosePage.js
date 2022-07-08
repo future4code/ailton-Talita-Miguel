@@ -10,7 +10,7 @@ import {
   Info,
   PersonImg,
   TrashImg,
-  DivImg
+  DivImg,
 } from "./styled";
 import Trash from "../../assets/img/trash.png";
 import Heart from "../../assets/img/heart.png";
@@ -18,25 +18,24 @@ import No from "../../assets/img/no.png";
 
 const ProfileToChoose = ({ clearList }) => {
   const [person, setPerson] = useState({});
-  const [isMatch, setIsMatch] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [left, setLeft] = useState("")
+  const [isMatch, setIsMatch] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [wichSide, setWichSide] = useState("");
 
   useEffect(() => {
     ProfileToChoose();
   }, []);
 
   const ProfileToChoose = () => {
-    setLoading(true)
+    setLoading(true);
     axios
       .get(`${BASE_URL}/person`)
       .then((response) => {
-        setLoading(false)
-        console.log('aaaa')
+        setLoading(false);
         setPerson(response.data.profile);
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         console.log("ProfileToChoose:", error.message);
       });
   };
@@ -52,24 +51,28 @@ const ProfileToChoose = ({ clearList }) => {
       .post(`${BASE_URL}/choose-person`, body)
       .then((response) => {
         if (response.data.isMatch) {
-          setIsMatch(false)
+          setIsMatch(false);
           alert("Deu match!");
         }
         ProfileToChoose();
-        setIsMatch(false)
+        setIsMatch(false);
       })
       .catch((error) => {
         console.log("choosePerson:", error.message);
       });
   };
 
-  console.log('is---', isMatch)
   return (
     <ProfileContainer>
       {!loading ? (
         <Section>
           <DivImg>
-            <PersonImg src={person?.photo} alt={person?.photo_alt} isMatch={isMatch} left={left}/>
+            <PersonImg
+              src={person?.photo}
+              alt={person?.photo_alt}
+              isMatch={isMatch}
+              wichSide={wichSide}
+            />
           </DivImg>
           <Info>
             <p>
@@ -81,17 +84,21 @@ const ProfileToChoose = ({ clearList }) => {
               <HeartImg
                 src={Heart}
                 alt="Heart"
-                onClick={() => {choosePerson(true)
-                  setIsMatch(true)
-                  setLeft('left')}}
+                onClick={() => {
+                  choosePerson(true);
+                  setIsMatch(true);
+                  setWichSide("left");
+                }}
               />
 
               <NoImg
                 src={No}
                 alt="No Heart"
-                onClick={() => {choosePerson(false)
-                  setIsMatch(true)
-                  setLeft('right')}}
+                onClick={() => {
+                  choosePerson(false);
+                  setIsMatch(true);
+                  setWichSide("right");
+                }}
               />
 
               <TrashImg src={Trash} alt="Trash" onClick={clearList} />

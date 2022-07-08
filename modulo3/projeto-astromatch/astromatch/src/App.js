@@ -27,14 +27,10 @@ const Header = styled.div`
   justify-content: space-evenly;
   align-items: center;
   padding: 8px;
-  box-shadow: 2px 2px 8px 2px #DCDCDC;
+  box-shadow: 2px 2px 8px 2px #dcdcdc;
   border-bottom: 1px solid #ccc;
   /* border: 3px solid; */
   /* border-image: linear-gradient(45deg, #ccc, black) 1; */
-
-
-
-
 `;
 
 const LoveImg = styled.img`
@@ -100,31 +96,31 @@ function App() {
 
   return (
     <AppContainer>
-        <GlobalStyle />
-        <Header>
-          <h1>AstroMatch</h1>
-          <div>
-            {matches ? (
-              <CoupleImg src={Couple} onClick={goToHomePage} />
-            ) : (
-              <LoveImg src={Love} onClick={goToMatchesPage} />
-            )}
-          </div>
-        </Header>
-        {matches ? (
-          <MatchesPage
-            clearList={clearList}
-            getMatches={getMatches}
-            listPersonMatches={listPersonMatches}
-          />
-        ) : (
-          <ProfileToChoosePage
-            clearList={clearList}
-            getMatches={getMatches}
-            listPersonMatches={listPersonMatches}
-          />
-        )}
-      </AppContainer>
+      <GlobalStyle />
+      <Header>
+        <h1>AstroMatch</h1>
+        <div>
+          {matches ? (
+            <CoupleImg src={Couple} onClick={goToHomePage} />
+          ) : (
+            <LoveImg src={Love} onClick={goToMatchesPage} />
+          )}
+        </div>
+      </Header>
+      {matches ? (
+        <MatchesPage
+          clearList={clearList}
+          getMatches={getMatches}
+          listPersonMatches={listPersonMatches}
+        />
+      ) : (
+        <ProfileToChoosePage
+          clearList={clearList}
+          getMatches={getMatches}
+          listPersonMatches={listPersonMatches}
+        />
+      )}
+    </AppContainer>
   );
 }
 
