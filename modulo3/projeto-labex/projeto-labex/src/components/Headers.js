@@ -1,5 +1,6 @@
-import astros from "../assets/img/astrologia.jpg"
+import rocket from "../assets/img/rocket.png"
 import styled from "styled-components"
+import {useNavigate} from "react-router-dom"
 
 
 const HeadersContainer = styled.div`
@@ -7,22 +8,28 @@ const HeadersContainer = styled.div`
     height: 150px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 
-    background: rgb(14,56,106);
-    background: radial-gradient(circle, rgba(14,56,106,1) 0%, rgba(12,18,34,1) 100%);
+    /* background: rgb(14,56,106);
+    background: radial-gradient(circle, rgba(14,56,106,1) 0%, rgba(12,18,34,1) 100%); */
 `
 
 const AstrosImg = styled.img`
-    width: 200px;
-    border-radius: 10px;
+    width: 100px;
+    margin-left: 16px;
 `
 
 function Headers() {
+  const navigate = useNavigate()
+
+  const goToLoginPage = () => {
+    navigate("/login")
+  }
+
     return (
       <HeadersContainer>
-        <AstrosImg src={astros} alt="Astros"/>
-        <button>Logar</button>
+        <AstrosImg src={rocket} alt="Astros"/>
+        <button onClick={goToLoginPage}>Logar</button>
       </HeadersContainer>
     );
   }
