@@ -1,17 +1,14 @@
 import Headers from "../../components/Headers";
-import {HomeContainer, MenuItem, Section, Card} from "./styles"
 import {useRequestData} from "../../services/useRequestData"
 import {BASE_URL} from "../../constants/url"
 import {useNavigate} from "react-router-dom"
+import {goToApplicationFormPage} from "../../routes/coordinator"
+import {HomeContainer, MenuItem, Section, Card} from "./styles"
 
 function HomePage() {
   const [data, isLoading, error] = useRequestData(`${BASE_URL}/trips`)
 
   const navigate = useNavigate()
-
-  const goToApplicationFormPage = () => {
-    navigate("/trips/application")
-  }
 
   const tripsList = data && data?.trips.map((trip, index) => {
     return <Card key={index}>
@@ -27,7 +24,7 @@ function HomePage() {
         <Headers />
         <HomeContainer>
           <MenuItem>
-            <button onClick={goToApplicationFormPage}>Inscerver-se em uma viagem</button>
+            <button onClick={()=> goToApplicationFormPage(navigate)}>Inscerver-se em uma viagem</button>
           </MenuItem>
           <Section>
             <h1>Lista de viagens</h1>

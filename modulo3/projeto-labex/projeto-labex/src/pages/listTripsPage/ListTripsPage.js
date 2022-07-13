@@ -2,7 +2,7 @@
 function ListTripsPage() {
     return (
       <div>
-        <p>aaaaa</p>
+        <p>Lista de viagem</p>
       </div>
     );
   }
