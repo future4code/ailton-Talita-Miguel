@@ -1,52 +1,107 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import {goToBack} from "../../routes/coordinator"
-import {CreateContainer} from "./styles"
+import { useEffect } from "react";
+import { useForm } from "../../hooks/useForm";
+import { BASE_URL } from "../../constants/url";
+import axios from "axios";
+import { PLANETS } from "../../constants/planets";
+import { goToBack, goToLoginPage } from "../../routes/coordinator";
+import { CreateContainer, Form } from "./styles";
 
 function CreateTripPage() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState("");
+  const token = window.localStorage.getItem("token");
+  const { form, onChange, cleanFields } = useForm({
+    name: "",
+    planet: "",
+    date: "",
+    description: "",
+    durationInDays: 0
+  });
 
+  useEffect(() => {
+    if (token === null) {
+      goToLoginPage(navigate);
+      alert(`Você não tem permissão para acessar essa página!`);
+    }
+  }, []);
 
-  const onChangeName = (event) => {
-    setName(event.target.value);
-  };
+  const onSubmitCreateTrip = (event) => {
+    event.preventDefault();
 
-  const onChangeDate = (event) => {
-    setDate(event.target.value);
-  };
-
-  const onChangeDescription = (event) => {
-    setDescription(event.target.value);
-  };
-
-  const onChangeDuration = (event) => {
-    setDuration(event.target.value);
+    axios
+      .post(`${BASE_URL}/trips`, form, {
+        headers: {
+          auth: token,
+        },
+      })
+      .then((res) => {
+        alert("Viagem cadastrada com sucesso!")
+        goToBack(navigate)
+      })
+      .catch((err) => {
+        console.log("CreateTrip:", err.response);
+        alert(`Algo deu errado, tente novamente`);
+      });
+      cleanFields()
   };
 
   return (
     <CreateContainer>
       <h1>Criar viagem</h1>
-      <input type={"text"} value={name} onChange={onChangeName} placeholder={"Nome"} />
-      <select>
-        <option>Escolha um Planeta</option>
-      </select>
-      <input type={"date"} value={date} onChange={onChangeDate} placeholder={"dd/mm/aaaa"} />
-      <textarea
-        type={"text"}
-        value={description}
-        onChange={onChangeDescription}
-        placeholder={"Descrição"}
-      />
-      <input type={"text"} value={duration} onChange={onChangeDuration} placeholder={"Duração em dias"} />
-      <select>
-        <option value="">Escolha um país</option>
-      </select>
-      <button>Enviar</button>
-      <button onClick={()=> goToBack(navigate)}>Voltar</button>
+      <Form onSubmit={onSubmitCreateTrip}>
+        <input
+          name="name"
+          type={"text"}
+          value={form.name}
+          onChange={onChange}
+          placeholder={"Nome"}
+          required
+        />
+
+        <select
+          name="planet"
+          type={"text"}
+          value={form.planet}
+          onChange={onChange}
+          placeholder={"Escolha um planeta"}
+          required
+        >
+          <option>Escolha um Planeta</option>
+          {PLANETS.map((planet) => {
+            return (
+              <option value={planet} key={planet}>
+                {planet}
+              </option>
+            );
+          })}
+        </select>
+        <input
+          name="date"
+          type={"date"}
+          value={form.date}
+          onChange={onChange}
+          placeholder={"dd/mm/aaaa"}
+          required
+        />
+        <textarea
+          name="description"
+          type={"text"}
+          value={form.description}
+          onChange={onChange}
+          placeholder={"Descrição"}
+          required
+        />
+        <input
+          name="durationInDays"
+          type={"number"}
+          value={form.durationInDays}
+          onChange={onChange}
+          placeholder={"Duração em dias"}
+          required
+        />
+        <button>Enviar</button>
+      </Form>
+      <button onClick={() => goToBack(navigate)}>Voltar</button>
     </CreateContainer>
   );
 }

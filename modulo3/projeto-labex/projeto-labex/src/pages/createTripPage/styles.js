@@ -5,3 +5,7 @@ export const CreateContainer = styled.section`
     flex-direction: column;
     width: 20%;
 `
+
+export const Form = styled.form`
+    display: contents;
+`

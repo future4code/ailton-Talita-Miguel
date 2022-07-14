@@ -34,6 +34,28 @@ function TripDetailsPage() {
       });
   }, []);
 
+  const decision = (candidate, choice) => {
+    const body = {
+      approve: choice
+    }
+
+    axios
+      .put(`${BASE_URL}/trips/${pathParams.id}/candidates/${candidate.id}/decide`, body, {
+        headers: {
+          auth: token,
+        },
+      })
+      .then((res) => {
+        console.log(res)
+        alert(`Candidato aprovado!`)
+      })
+      .catch((err) => {
+        console.log("decision:", err.response);
+      });
+
+    console.log(candidate)
+  }
+
   const candidates = data?.candidates?.map((candidate, index) => {
     return (
       <div key={index}>
@@ -42,6 +64,8 @@ function TripDetailsPage() {
         </p>
         <p>{candidate.country}</p>
         <p>{candidate.profession}</p>
+        <button onClick={() =>decision(candidate, true)}>Aprovar</button>
+        <button onClick={() =>decision(candidate, false)}>reprovado</button>
       </div>
     );
   });
@@ -71,6 +95,7 @@ function TripDetailsPage() {
             <p>{data.description}</p>
             <p>Duração da viagem:{data.durationInDays} dias</p>
             <p>Data da viagem: {data.date}</p>
+            <h3>Avaliação Pendente</h3>
             <div>
               {candidates?.length > 0 ? (
                 candidates
@@ -80,7 +105,10 @@ function TripDetailsPage() {
             </div>
             <div>
               {aprovedCandidates?.length > 0 ? (
-                aprovedCandidates
+                <>
+                <h3>Lista candidatos aprovados</h3>
+                {aprovedCandidates}
+                </>
               ) : (
                 <p>Não há candidatos aprovados</p>
               )}
