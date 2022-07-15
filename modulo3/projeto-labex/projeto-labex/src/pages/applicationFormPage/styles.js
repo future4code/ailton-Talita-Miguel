@@ -24,16 +24,44 @@ export const Title = styled.div`
     -webkit-text-fill-color: transparent;
     color: black;
   }
+
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+  }
 `;
 
 export const Planet = styled.div`
   display: flex;
   flex-direction: row;
 
-  img {
-    width: 300px;
-    height: 300px;
-    margin-right: 30px;
+  @media (max-width: 400px) {
+    flex-direction: column-reverse;
+  }
+`;
+
+export const PlanetImg = styled.img`
+  width: 300px;
+  height: 300px;
+  margin-right: 30px;
+
+  &:hover {
+    animation: "PlanetImg" 1s ease-in;
+  }
+
+  @keyframes PlanetImg {
+    100% {
+      transform: rotate(10deg) translate3d(-200px, 0, 0);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 400px) {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
   }
 `;
 
@@ -75,10 +103,10 @@ export const Form = styled.form`
 export const Buttons = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `;
-export const ButtonEnviar = styled.button`
-  width: 150px;
+export const Button = styled.button`
+  width: 120px;
   cursor: pointer;
   margin: 12px 0;
   padding: 8px;

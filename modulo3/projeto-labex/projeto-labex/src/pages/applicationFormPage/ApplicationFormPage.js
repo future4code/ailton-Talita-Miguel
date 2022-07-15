@@ -1,30 +1,30 @@
 import { useRequestData } from "../../hooks/useRequestData";
 import { BASE_URL } from "../../constants/url";
 import { useForm } from "../../hooks/useForm";
-import { RiArrowGoBackFill } from "react-icons/ri";
 import Headers from "../../components/Headers";
+import Swal from 'sweetalert2'
 import axios from "axios";
 import planetas from "../../assets/img/planeta1.png";
 import { COUNTRIES } from "../../constants/countries";
 import { useNavigate } from "react-router-dom";
+import { goToBack } from "../../routes/coordinator";
 import {
   ApplyContainer,
   Form,
   Title,
   Planet,
   Buttons,
-  ButtonEnviar,
+  Button,
+  PlanetImg,
   Body,
 } from "./styles";
-import { goToBack } from "../../routes/coordinator";
 
 function ApplicationFormPage() {
   const navigate = useNavigate();
-  const token = window.localStorage.getItem("token");
   const [data] = useRequestData(`${BASE_URL}/trips`);
   const { form, onChange, cleanFields } = useForm({
     name: "",
-    age: 0,
+    age: "",
     applicationText: "",
     profession: "",
     country: "",
@@ -41,15 +41,25 @@ function ApplicationFormPage() {
       profession: form.profession,
       country: form.country,
     };
-    console.log(body);
+
     axios
       .post(`${BASE_URL}/trips/${form.trip}/apply`, body)
       .then((res) => {
-        alert("Viagem cadastrada com sucesso!");
+        Swal.fire({
+          position: 'top-center',
+          icon: 'success',
+          title: 'Candidatura realizada com sucesso!',
+          showConfirmButton: false,
+          timer: 1800
+        })
       })
       .catch((err) => {
-        console.log("ApplyTrip:", err.response);
-        alert(`Algo deu errado, tente novamente`);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Algo deu errado, verifique preenchimento dos campos',
+          footer: `Código do erro ${err.response.status}`
+        })
       });
     cleanFields();
   };
@@ -59,10 +69,10 @@ function ApplicationFormPage() {
       <Headers />
       <Body>
         <Title>
-          <h1>Inscreva-se para uma viagem</h1>
+          <h1>Candidate-se a uma viagem</h1>
         </Title>
         <Planet>
-          <img src={planetas} alt="Planetas" />
+          <PlanetImg src={planetas} alt="Planetas" />
           <Form onSubmit={onSubmitApplyToTrip}>
             <select
               name="trip"
@@ -138,8 +148,8 @@ function ApplicationFormPage() {
               })}
             </select>
             <Buttons>
-              <ButtonEnviar>Enviar</ButtonEnviar>
-              <RiArrowGoBackFill onClick={() => goToBack(navigate)} />
+              <Button>Enviar</Button>
+              <Button onClick={() => goToBack(navigate)}>Voltar</Button>
             </Buttons>
           </Form>
         </Planet>

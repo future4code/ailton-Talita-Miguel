@@ -1,18 +1,28 @@
 import { useRequestData } from "../../hooks/useRequestData";
 import { BASE_URL } from "../../constants/url";
 import { useEffect } from "react";
-import Headers from "../../components/Headers"
-import axios from "axios";
-import { RiArrowGoBackFill } from "react-icons/ri";
+import Swal from "sweetalert2";
+import spinner from "../../assets/img/spinner.gif";
+import Headers from "../../components/Headers";
+import { deleteTrip } from "../../services/request";
 import { useNavigate } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
+import {
+  AdmContainer,
+  Section,
+  Title,
+  Cards,
+  Card,
+  Buttons,
+  Button,
+  Spinner,
+} from "./styles";
 import {
   goToLoginPage,
   goToTripDetailsPage,
   goToHomePage,
   goToCreateTripPage,
 } from "../../routes/coordinator";
-import { AdmContainer, Section, Title, Cards, Card, Buttons, Button } from "./styles";
 
 function AdminHomePage() {
   const [data, isLoading, error] = useRequestData(`${BASE_URL}/trips`);
@@ -22,36 +32,13 @@ function AdminHomePage() {
   useEffect(() => {
     if (token === null) {
       goToLoginPage(navigate);
-      alert(`Você não tem permissão para acessar essa página!`);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Você não tem permissão para acessar essa página!",
+      });
     }
   }, []);
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    goToHomePage(navigate);
-  };
-
-  const deleteTrip = (id, name) => {
-    const confirm = window.confirm(
-      `Tem certeza que deseja deletar a viagem: ${name}`
-    );
-
-    if (confirm) {
-      axios
-        .delete(`${BASE_URL}/trips/${id}`, {
-          headers: {
-            auth: token,
-          },
-        })
-        .then((res) => {
-          alert(`Viagem deletada!`);
-          window.location.reload();
-        })
-        .catch((err) => {
-          console.log("deleteTrip:", err.response);
-        });
-    }
-  };
 
   const tripsList =
     data &&
@@ -66,7 +53,7 @@ function AdminHomePage() {
             <h2>Viagem: {trip.name}</h2>
             <h3>Planeta: {trip.planet}</h3>
           </Card>
-          <FaTrashAlt onClick={() => deleteTrip(trip.id, trip.name)} />
+          <FaTrashAlt onClick={() => deleteTrip(trip.id, trip.name, token)} />
         </Cards>
       );
     });
@@ -78,7 +65,11 @@ function AdminHomePage() {
         <Title>
           <h1>Painel Administrativo</h1>
         </Title>
-        {isLoading && <p>Carregando...</p>}
+        {isLoading && (
+          <Spinner>
+            <img src={spinner} alt="Loading" />
+          </Spinner>
+        )}
         {!isLoading && error && <p>{error.message}</p>}
         {!isLoading && data && data.trips.length > 0 && tripsList}
         {!isLoading && data && data.trips.length === 0 && (
@@ -88,10 +79,9 @@ function AdminHomePage() {
           <Button
             onClick={() => token !== null && goToCreateTripPage(navigate)}
           >
-            Criar
+            Criar Viagem
           </Button>
-          <Button onClick={logout}>Logout</Button>
-          <RiArrowGoBackFill onClick={() => goToHomePage(navigate)} />
+          <Button onClick={() => goToHomePage(navigate)}>Voltar</Button>
         </Buttons>
       </Section>
     </AdmContainer>

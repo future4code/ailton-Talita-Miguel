@@ -16,6 +16,10 @@ export const Border = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 400px) {
+    width: 90%;
+  }
 `;
 
 export const Input = styled.input`
@@ -33,6 +37,10 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 350px;
+
+  @media (max-width: 400px) {
+    width: 90%;
+  }
 `;
 
 export const Title = styled.div`

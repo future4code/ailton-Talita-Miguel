@@ -3,8 +3,19 @@ import { useRequestData } from "../../hooks/useRequestData";
 import { BASE_URL } from "../../constants/url";
 import { useNavigate } from "react-router-dom";
 import { ImArrowRight } from "react-icons/im";
+import { ImArrowDown } from "react-icons/im";
+import spinner from "../../assets/img/spinner.gif";
 import { goToApplicationFormPage } from "../../routes/coordinator";
-import { HomeContainer, MenuItem, Section, Card, Button, Title } from "./styles";
+import {
+  HomeContainer,
+  MenuItemDesktop,
+  MenuItemMobile,
+  Section,
+  Card,
+  Button,
+  Title,
+  Spinner,
+} from "./styles";
 
 function HomePage() {
   const [data, isLoading, error] = useRequestData(`${BASE_URL}/trips`);
@@ -28,17 +39,33 @@ function HomePage() {
     <div>
       <Headers />
       <HomeContainer>
-        <MenuItem>
+        <MenuItemDesktop>
           <Title>
             <h1>Lista de viagens </h1>
             <ImArrowRight />
           </Title>
           <Button onClick={() => goToApplicationFormPage(navigate)}>
-            Inscrever-se em uma viagem
+            Candidate-se a uma viagem
           </Button>
-        </MenuItem>
+        </MenuItemDesktop>
+        <MenuItemMobile>
+          <Title>
+            <h2>Candidate-se a uma viagem</h2>
+          </Title>
+          <Button onClick={() => goToApplicationFormPage(navigate)}>
+            Clique aqui
+          </Button>
+          <Title>
+            <h1>Lista de viagens </h1>
+            <ImArrowDown />
+          </Title>
+        </MenuItemMobile>
         <Section>
-          {isLoading && <p>Carregando...</p>}
+          {isLoading && (
+            <Spinner>
+              <img src={spinner} alt="Loading" />
+            </Spinner>
+          )}
           {!isLoading && error && <p>{error.message}</p>}
           {!isLoading && data && data.trips.length > 0 && tripsList}
           {!isLoading && data && data.trips.length === 0 && (

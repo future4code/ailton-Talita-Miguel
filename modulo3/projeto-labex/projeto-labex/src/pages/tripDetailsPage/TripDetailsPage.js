@@ -1,11 +1,26 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../../constants/url";
+import Headers from "../../components/Headers";
 import { useNavigate } from "react-router-dom";
+import spinner from "../../assets/img/spinner.gif";
 import { goToBack } from "../../routes/coordinator";
 import axios from "axios";
 
-import { Card } from "./styles";
+import {
+  DetailsContainer,
+  Cards,
+  Card,
+  CardsList,
+  Buttons,
+  Button,
+  Info,
+  Text,
+  Title,
+  Title2,
+  Spinner,
+} from "./styles";
 
 function TripDetailsPage() {
   const token = window.localStorage.getItem("token");
@@ -30,94 +45,128 @@ function TripDetailsPage() {
       .catch((err) => {
         setIsLoading(false);
         setError(err);
-        console.log("TripDetailsPage:", err.response);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado, verifique preenchimento dos campos",
+          footer: `Código do erro ${err.response.status}`,
+        });
       });
   }, []);
 
   const decision = (candidate, choice) => {
     const body = {
-      approve: choice
-    }
+      approve: choice,
+    };
 
     axios
-      .put(`${BASE_URL}/trips/${pathParams.id}/candidates/${candidate.id}/decide`, body, {
-        headers: {
-          auth: token,
-        },
-      })
-      .then((res) => {
-        console.log(res)
-        alert(`Candidato aprovado!`)
+      .put(
+        `${BASE_URL}/trips/${pathParams.id}/candidates/${candidate.id}/decide`,
+        body,
+        {
+          headers: {
+            auth: token,
+          },
+        }
+      )
+      .then(() => {
+        if (choice === true) {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Candidato aprovado!",
+            showConfirmButton: false,
+            timer: 1800,
+          });
+        } else {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Candidato reprovada!",
+            showConfirmButton: false,
+            timer: 1800,
+          });
+          window.location.reload();
+        }
       })
       .catch((err) => {
-        console.log("decision:", err.response);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado, verifique preenchimento dos campos",
+          footer: `Código do erro ${err.response.status}`,
+        });
       });
-
-    console.log(candidate)
-  }
+  };
 
   const candidates = data?.candidates?.map((candidate, index) => {
     return (
-      <div key={index}>
-        <p>
+      <Card key={index}>
+        <Info>
           {candidate.name}, {candidate.age}
-        </p>
-        <p>{candidate.country}</p>
-        <p>{candidate.profession}</p>
-        <button onClick={() =>decision(candidate, true)}>Aprovar</button>
-        <button onClick={() =>decision(candidate, false)}>reprovado</button>
-      </div>
+        </Info>
+        <Text>País: {candidate.country}</Text>
+        <Text>Profissão: {candidate.profession}</Text>
+        <Buttons>
+          <Button onClick={() => decision(candidate, true)}>Aprovar</Button>
+          <Button onClick={() => decision(candidate, false)}>Reprovado</Button>
+        </Buttons>
+      </Card>
     );
   });
 
   const aprovedCandidates = data?.approved?.map((candidate, index) => {
     return (
-      <div key={index}>
-        <p>
+      <Card key={index}>
+        <Info>
           {candidate.name}, {candidate.age}
-        </p>
-        <p>{candidate.country}</p>
-        <p>{candidate.profession}</p>
-      </div>
+        </Info>
+        <Text>País: {candidate.country}</Text>
+        <Text>Profissão: {candidate.profession}</Text>
+      </Card>
     );
   });
 
   return (
-    <div>
-      <Card>
-        {isLoading && <p>Carregando...</p>}
+    <DetailsContainer>
+      <Headers />
+      <Cards>
+        {isLoading && (
+          <Spinner>
+            <img src={spinner} alt="Loading" />
+          </Spinner>
+        )}
         {!isLoading && error && <p>{error.message}</p>}
         {!isLoading && data?.length > 0 && <p>Não há viagens!</p>}
         {!isLoading && data && (
           <div>
-            <h2>{data.name}</h2>
-            <h3>{data.planet}</h3>
-            <p>{data.description}</p>
-            <p>Duração da viagem:{data.durationInDays} dias</p>
-            <p>Data da viagem: {data.date}</p>
-            <h3>Avaliação Pendente</h3>
-            <div>
+            <Title>{data.name}</Title>
+            <Title2>Planeta: {data.planet}</Title2>
+            <Text>Descrição: {data.description}</Text>
+            <Text>Duração da viagem: {data.durationInDays} dias</Text>
+            <Text>Data da viagem: {data.date}</Text>
+            <Title2>Avaliação Pendente</Title2>
+            <CardsList>
               {candidates?.length > 0 ? (
                 candidates
               ) : (
-                <p>Não há candidatos pendentes</p>
+                <Text>Não há candidatos pendentes</Text>
               )}
-            </div>
-            <div>
+            </CardsList>
+            <Title2>List a candidatos aprovados</Title2>
+            <CardsList>
               {aprovedCandidates?.length > 0 ? (
-                <>
-                <h3>Lista candidatos aprovados</h3>
-                {aprovedCandidates}
-                </>
+                aprovedCandidates
               ) : (
-                <p>Não há candidatos aprovados</p>
+                <Text>Não há candidatos aprovados</Text>
               )}
-            </div>
+            </CardsList>
           </div>
         )}
-        <button onClick={() => goToBack(navigate)}>Voltar</button>
-      </Card>
-    </div>
+
+        <Button onClick={() => goToBack(navigate)}>Voltar</Button>
+      </Cards>
+    </DetailsContainer>
   );
 }
 

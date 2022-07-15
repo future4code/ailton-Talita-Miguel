@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import Swal from "sweetalert2";
 import Headers from "../../components/Headers";
-import { goToBack, goToAdminHomePage } from "../../routes/coordinator";
+import { goToHomePage, goToAdminHomePage } from "../../routes/coordinator";
 import { BASE_URL } from "../../constants/url";
 import { useForm } from "../../hooks/useForm";
-import { RiArrowGoBackFill } from "react-icons/ri";
 import axios from "axios";
 
 import {
@@ -20,14 +19,6 @@ import {
 function LoginPage() {
   const navigate = useNavigate();
   const { form, onChange, cleanFields } = useForm({ email: "", password: "" });
-  const token = window.localStorage.getItem("token");
-
-  useEffect(() => {
-    if (token !== null) {
-      alert(`Você já está logado`);
-      goToAdminHomePage(navigate);
-    }
-  }, []);
 
   const onSubmitLogin = (event) => {
     event.preventDefault();
@@ -39,8 +30,12 @@ function LoginPage() {
         goToAdminHomePage(navigate);
       })
       .catch((err) => {
-        console.log("login:", err.response);
-        alert(`Algo deu errado, tente novamente`);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado, verifique preenchimento dos campos",
+          footer: `Código do erro ${err.response.status}`,
+        });
       });
     cleanFields();
   };
@@ -74,7 +69,7 @@ function LoginPage() {
           />
           <Buttons>
             <ButtonLog>Logar</ButtonLog>
-            <RiArrowGoBackFill onClick={() => goToBack(navigate)} />
+            <ButtonLog onClick={() => goToHomePage(navigate)}>Voltar</ButtonLog>
           </Buttons>
         </Form>
       </Border>

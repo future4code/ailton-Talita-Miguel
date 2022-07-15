@@ -10,6 +10,10 @@ export const AdmContainer = styled.div`
 export const Section = styled.section`
   width: 800px;
   margin: 20px auto;
+
+  @media (max-width: 400px) {
+    width: 90%;
+  }
 `;
 
 export const Title = styled.div`
@@ -30,6 +34,10 @@ export const Title = styled.div`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: black;
+
+  @media (max-width: 400px) {
+    font-size: 1.3rem;
+  }
 `;
 
 export const Cards = styled.div`
@@ -65,6 +73,12 @@ export const Card = styled.div`
     width: 75%;
     font-size: 1.4rem;
   }
+
+  @media (max-width: 400px) {
+    h2, h3 {
+      font-size: 1rem;
+    }
+  }
 `;
 
 export const Buttons = styled.div`
@@ -75,23 +89,22 @@ export const Buttons = styled.div`
 `
 
 export const Button = styled.button`
+  width: 150px;
   cursor: pointer;
-  font-size: 1rem;
-  width: 120px;
-  padding: 4px 0;
+  margin: 12px 0;
+  padding: 10px;
+  font-weight: bold;
   border-radius: 5px;
-  background-image: linear-gradient(
-    to bottom,
-    rebeccapurple,
-    steelblue,
-    turquoise
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: black;
-
+  color: white;
+  border: none;
+  background: #466fb6;
   &:hover {
     opacity: 0.8;
   }
+`;
+
+export const Spinner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
