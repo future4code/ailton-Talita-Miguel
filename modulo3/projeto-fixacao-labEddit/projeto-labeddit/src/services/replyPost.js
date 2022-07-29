@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { BASE_URL } from "../constants/urls";
-import { GlobalContext } from "../components/Global/GlobalContext";
 import { goToFeedPage } from "../routes/coordinator";
 import { useNavigate } from "react-router-dom";
 
 export const ReplyPost = () => {
   const navigate = useNavigate();
-  const { isLoading, setIsLoading } = useContext(GlobalContext);
-  // setIsLoading(true);
-  const replyPost = ( form, id) => {
+  const replyPost = (form, id, setIsLoading, clear, getPosts) => {
+    setIsLoading(true);
     axios
       .post(`${BASE_URL}/posts/${id}/comments`, form, {
         headers: {
@@ -17,13 +15,26 @@ export const ReplyPost = () => {
         },
       })
       .then((res) => {
-        // setIsLoading(false);
+        setIsLoading(false);
         goToFeedPage(navigate);
-        alert("Comentário adicionado com sucesso!");
+        getPosts();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Comentário adicionado com sucesso!!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        clear();
       })
-      .catch((err) => {
-        // setIsLoading(false);
-        alert(err.response.data.message);
+      .catch((error) => {
+        setIsLoading(false);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado. Tente novamente mais tarde",
+          footer: `Código do erro ${error.response.status}`,
+        });
       });
   };
   return { replyPost };

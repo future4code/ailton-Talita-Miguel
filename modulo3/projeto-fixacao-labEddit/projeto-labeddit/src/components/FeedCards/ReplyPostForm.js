@@ -1,18 +1,17 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { InputsContainer } from "./styled";
 import useForm from "../../hooks/useForm";
 import { ReplyPost } from "../../services/replyPost";
-import { GlobalContext } from "../Global/GlobalContext";
 import { Button, TextField, CircularProgress } from "@mui/material";
 
-const ReplyPostForm = ({ post }) => {
-  const [form, onChange] = useForm({ body: "" });
-  const { isLoading } = useContext(GlobalContext);
+const ReplyPostForm = ({ post, getPosts }) => {
+  const [form, onChange, clear] = useForm({ body: "" });
+  const [isLoading, setIsLoading] = useState(false)
   const { replyPost } = ReplyPost();
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    replyPost(form, post.id);
+    replyPost(form, post.id, setIsLoading, clear, getPosts);
   };
 
   return (

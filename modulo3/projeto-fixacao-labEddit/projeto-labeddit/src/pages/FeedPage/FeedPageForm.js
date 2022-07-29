@@ -1,26 +1,25 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { InputsContainer } from "./styled";
 import useForm from "../../hooks/useForm";
 import { AddPost } from "../../services/posts";
 import useProtectedPage from "../../hooks/useProtectedPage";
-import { GlobalContext } from "../../components/Global/GlobalContext";
+import {FeedPageFormContainer} from "./styled"
 import { Button, TextField, CircularProgress } from "@mui/material";
 
-const FeedPageForm = () => {
+const FeedPageForm = ({getPosts}) => {
   useProtectedPage();
   const [form, onChange, clear] = useForm({ title: "", body: "" });
-  const { isLoading } = useContext(GlobalContext);
+  const [isLoading, setIsLoading] = useState(false)
   const { addPost } = AddPost();
   const navigate = useNavigate();
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    addPost(form, clear, navigate);
+    addPost(form, clear, navigate, setIsLoading, getPosts);
   };
 
   return (
-    <InputsContainer>
+    <FeedPageFormContainer>
       <form onSubmit={onSubmitForm}>
         <TextField
           name={"title"}
@@ -68,7 +67,7 @@ const FeedPageForm = () => {
           )}
         </Button>
       </form>
-    </InputsContainer>
+    </FeedPageFormContainer>
   );
 };
 

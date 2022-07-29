@@ -6,10 +6,6 @@ export const goToFeedPage = (navigate) => {
   navigate("/")
 }
 
-export const goToPostPage = (navigate) => {
-  navigate("/post")
-}
-
 export const goToSignupPage = (navigate) => {
   navigate("/signUp")
 }

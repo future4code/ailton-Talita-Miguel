@@ -15,6 +15,10 @@ export const InputsContainer = styled.div`
   max-width: 100vw;
   align-items: center;
   margin: 10px 0;
+
+  @media screen and (max-width: 480px) {
+    max-width: 90vw;
+  }
 `
 
 export const LoginFormContainer = styled.div`
@@ -31,6 +35,10 @@ export const SignUpButtonContainer = styled.div`
   width: 100vw;
   max-width: 428px;
   align-items: center;
+
+  @media screen and (max-width: 480px) {
+    max-width: 90vw;
+  }
 `
 
 export const LogoImage = styled.img`

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AppBar, Button } from "@mui/material";
-import { StyledToolBar } from "./styled";
+import { StyledToolBar, HeaderContainer } from "./styled";
 import logo from "../../assets/image/logo.svg";
 import { goToLoginPage, goToFeedPage } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
@@ -26,22 +26,24 @@ const Header = () => {
   };
 
   return (
-    <AppBar
-      position="static"
-      style={{
-        background: "#EDEDED",
-        color: "#4088CB",
-      }}
-    >
-      <StyledToolBar>
-        <Button color="inherit" onClick={() => goToFeedPage(navigate)}>
-          <img src={logo} alt="LabEddit" />
-        </Button>
-        <Button color="inherit" onClick={rightButtonAction}>
-          {rightButton}
-        </Button>
-      </StyledToolBar>
-    </AppBar>
+    <HeaderContainer>
+      <AppBar
+        position="static"
+        style={{
+          background: "#EDEDED",
+          color: "#4088CB",
+        }}
+      >
+        <StyledToolBar>
+          <Button color="inherit" onClick={() => goToFeedPage(navigate)}>
+            <img src={logo} alt="LabEddit" />
+          </Button>
+          <Button color="inherit" onClick={rightButtonAction}>
+            {rightButton}
+          </Button>
+        </StyledToolBar>
+      </AppBar>
+    </HeaderContainer>
   );
 };
 

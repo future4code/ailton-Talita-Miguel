@@ -1,30 +1,37 @@
-import React, { useContext } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { BASE_URL } from "../constants/urls";
-import { GlobalContext } from "../components/Global/GlobalContext";
-import { goToFeedPage } from "../routes/coordinator";
 
 export const AddPost = () => {
-  const { isLoading, setIsLoading } = useContext(GlobalContext);
-  // setIsLoading(true);
-  const addPost = (body, clear, navigate) => {
+  const addPost = (body, clear, navigate, setIsLoading, getPosts) => {
+    setIsLoading(true);
     axios
       .post(`${BASE_URL}/posts`, body, {
         headers: {
-          Authorization: localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem("token"),
+        },
       })
       .then((res) => {
         clear();
-        // setIsLoading(false);
-        goToFeedPage(navigate);
-        alert('Post enviado com sucesso!')
+        setIsLoading(false);
+        getPosts();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Post enviado!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       })
-      .catch((err) => {
-        // setIsLoading(false);
-        alert(err.response.data.message);
+      .catch((error) => {
+        setIsLoading(false);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado. Tente novamente mais tarde",
+          footer: `Código do erro ${error.response.status}`,
+        });
       });
-    //console.log('post')
   };
   return { addPost };
 };

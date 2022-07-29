@@ -8,12 +8,20 @@ export const Title = styled.h1`
   line-height: 43px;
   color: #373737;
   margin: 80px 0;
+
+  @media screen and (max-width: 480px) {
+    margin-left: 8px;
+  }
 `;
 
 export const SignUpPageContainer = styled.div`
    width: 100%;
   max-width: 428px;
   margin: 0 auto;
+
+  @media screen and (max-width: 480px) {
+    max-width: 90vw;
+  }
 `
 
 export const ScreenContainer = styled.div`

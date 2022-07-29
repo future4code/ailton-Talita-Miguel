@@ -14,7 +14,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import { PostCardContainer } from "./styled";
 import ReplyPostForm from "./ReplyPostForm";
-import { VotePost } from "../../services/votePost";
+import { votePost, DeleteVotePost } from "../../services/votePost";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,8 +27,8 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const PostCards = ({ post }) => {
-  const { votePost } = VotePost();
+const PostCards = ({ post, getPosts }) => {
+  const { deleteVote } = DeleteVotePost();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -36,14 +36,18 @@ const PostCards = ({ post }) => {
   };
 
   const onClickVote = (id, choice) => {
-    votePost(id, choice);
+    votePost(id, choice, getPosts);
+  };
+
+  const onClickDeleteVote = (id) => {
+    deleteVote(id, getPosts);
   };
 
   return (
     <PostCardContainer>
       <Card
         sx={{
-          width: '100%',
+          width: "330px",
           minHeight: 200,
           mb: 2,
         }}
@@ -65,28 +69,54 @@ const PostCards = ({ post }) => {
         <CardContent>
           <Typography
             variant="body2"
-            sx={{ fontWeight: "bold" }}
+            sx={{
+              fontWeight: "bold",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              width: "95%",
+            }}
             color="text.secondary"
           >
             {post.body}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton
-            aria-label="Number Votes"
-            onClick={() => onClickVote(post.id, 1)}
-          >
-            <ThumbUpOffAltIcon />
-          </IconButton>
+          {post.userVote === 1 ? (
+            <IconButton
+              aria-label="Number Votes"
+              onClick={() => onClickDeleteVote(post.id)}
+            >
+              <ThumbUpOffAltIcon color="primary" />
+            </IconButton>
+          ) : (
+            <IconButton
+              aria-label="Number Votes"
+              onClick={() => onClickVote(post.id, 1)}
+            >
+              <ThumbUpOffAltIcon />
+            </IconButton>
+          )}
+
           <Typography sx={{ fontSize: 22 }} color="text.secondary">
-            {post.commentCount < 0 ? 0 : post.voteSum}
+            {post.voteSum === null ? 0 : post.voteSum}
           </Typography>
-          <IconButton
-            aria-label="Number Votes"
-            onClick={() => onClickVote(post.id, -1)}
-          >
-            <ThumbDownOffAltIcon />
-          </IconButton>
+
+          {post.userVote === -1 ? (
+            <IconButton
+              aria-label="Number Votes"
+              onClick={() => onClickDeleteVote(post.id)}
+            >
+              <ThumbDownOffAltIcon color="primary" />
+            </IconButton>
+          ) : (
+            <IconButton
+              aria-label="Number Votes"
+              onClick={() => onClickVote(post.id, -1)}
+            >
+              <ThumbDownOffAltIcon />
+            </IconButton>
+          )}
+
           <IconButton aria-label="Chat">
             <ChatBubbleOutlineRoundedIcon />
             {post.commentCount === null ? 0 : post.commentCount}
@@ -103,7 +133,7 @@ const PostCards = ({ post }) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <ReplyPostForm post={post} />
+            <ReplyPostForm post={post} getPosts={getPosts}/>
           </CardContent>
         </Collapse>
       </Card>

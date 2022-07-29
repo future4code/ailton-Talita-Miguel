@@ -1,21 +1,20 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputsContainer } from "./styled";
 import useForm from "../../hooks/useForm";
 import {Login} from '../../services/user'
-import { GlobalContext } from "../../components/Global/GlobalContext";
 import { Button, TextField, CircularProgress } from "@mui/material";
 
 const LoginForm = () => {
   const [form, onChange, clear] = useForm({ email: "", password: "" });
-  const { isLoading } = useContext(GlobalContext);
+  const [isLoading, setIsLoading] = useState(false)
   const {login} = Login()
   
   const navigate = useNavigate();
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    login(form, clear, navigate)
+    login(form, clear, navigate, setIsLoading)
   };
 
 

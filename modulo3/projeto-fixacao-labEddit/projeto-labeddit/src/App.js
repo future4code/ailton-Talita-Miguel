@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import Router from "./routes/Router";
 import theme from "./constants/theme";
 import Header from "./components/Header/Header";

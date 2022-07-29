@@ -33,9 +33,7 @@ const LoginPage = () => {
           variant="outlined"
           margin="normal"
           onClick={() => goToSignupPage(navigate)}
-          sx={{
-            borderRadius: 20,
-          }}
+          sx={{borderRadius: 20}}
         >
           Crie uma conta!
         </Button>

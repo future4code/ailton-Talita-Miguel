@@ -5,10 +5,19 @@ export const ErrorPageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: 5%;
+  width: 100%;
+  min-height: 500px;
+  height: 90vh;
+  max-width: 428px;
+  margin: 0 auto;
+  box-shadow: 2px 2px 6px 2px #ccc;
 `
 
 export const ErrorImage = styled.img`
-  width: 65vw;
-  max-width: 600px;
+  max-width: 428px;
+
+  @media screen and (max-width: 480px) {
+    max-width: 350px;
+  }
 `

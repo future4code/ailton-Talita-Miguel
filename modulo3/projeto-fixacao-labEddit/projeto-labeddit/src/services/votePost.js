@@ -1,33 +1,50 @@
-import React, { useContext } from "react";
 import axios from "axios";
 import { BASE_URL } from "../constants/urls";
-import { GlobalContext } from "../components/Global/GlobalContext";
-import { goToFeedPage } from "../routes/coordinator";
-import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-export const VotePost = () => {
-  const navigate = useNavigate();
-  const { isLoading, setIsLoading } = useContext(GlobalContext);
-  // setIsLoading(true);
-  const votePost = (id, choice) => {
-    const body = {
-      direction: choice
-    }
+
+export const votePost = (id, choice, getPosts) => {
+  const body = {
+    direction: choice,
+  };
+  axios
+    .post(`${BASE_URL}/posts/${id}/votes`, body, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      getPosts();
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Algo deu errado. Tente novamente mais tarde",
+        footer: `Código do erro ${error.response.status}`,
+      });
+    });
+};
+
+export const DeleteVotePost = (getPosts) => {
+  const deleteVote = (id) => {
     axios
-      .post(`${BASE_URL}/posts/${id}/votes`, body, {
+      .delete(`${BASE_URL}/posts/${id}/votes`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       })
       .then((res) => {
-        // setIsLoading(false);
-        goToFeedPage(navigate);
-        alert("Voto enviado com sucesso!");
+        getPosts();
       })
-      .catch((err) => {
-        // setIsLoading(false);
-        alert(err.response.data.message);
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado. Tente novamente mais tarde",
+          footer: `Código do erro ${error.response.status}`,
+        });
       });
   };
-  return { votePost };
+  return { deleteVote };
 };

@@ -3,13 +3,11 @@ import styled from "styled-components";
 export const PostCardContainer = styled.div`
   width: 100%;
   max-width: 428px;
+  margin: 0 auto;
 `;
 
 export const InputsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   max-width: 428px;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 0;
+  margin: 0 auto;
 `;

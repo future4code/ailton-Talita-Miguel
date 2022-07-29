@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { InputsContainer } from "./styled";
 import useForm from "../../hooks/useForm";
 import { SignUp } from "../../services/user";
 import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../components/Global/GlobalContext";
 import {
   Button,
   TextField,
@@ -14,7 +13,7 @@ import {
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const { isLoading } = useContext(GlobalContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [form, onChange, clear] = useForm({
     username: "",
     email: "",
@@ -24,7 +23,7 @@ const SignUpForm = () => {
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    signUp(form, clear, navigate);
+    signUp(form, clear, navigate, setIsLoading);
   };
 
   return (
