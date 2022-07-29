@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputsContainer } from "./styled";
 import useForm from "../../hooks/useForm";
@@ -46,7 +46,9 @@ const LoginForm = () => {
           type={"password"}
         />
 
-        <Button type={"submit"} fullWidth variant="contained" margin="normal">
+        <Button type={"submit"} fullWidth variant="contained" sx={{
+            background: 'linear-gradient(45deg, #FF6489 20%, #F9B24E 90%)', borderRadius: 20, mt:2
+          }}>
           {isLoading ? <CircularProgress color="inherit" size={24}/> : <>Fazer Login</>}
         </Button>
       </form>

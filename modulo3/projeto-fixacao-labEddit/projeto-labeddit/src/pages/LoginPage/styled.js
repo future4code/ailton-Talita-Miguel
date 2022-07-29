@@ -5,22 +5,23 @@ export const ScreenContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  margin-top: 10vh;
+  max-width: 428px;
+  margin: 5vh auto;
 `
 
 export const InputsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 80vw;
+  max-width: 100vw;
   align-items: center;
-  margin-bottom: 10px;
+  margin: 10px 0;
 `
 
 export const LoginFormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80vw;
-  max-width: 450px;
+  width: 100vw;
+  max-width: 428px;
   align-items: center;
 `
 
@@ -28,12 +29,12 @@ export const SignUpButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
-  max-width: 600px;
+  max-width: 428px;
   align-items: center;
 `
 
 export const LogoImage = styled.img`
-  width: 70vw;
-  max-width: 300px;
-  border-radius: 5px;
+  width: 100vw;
+  max-width: 152px;
+  margin: 8px 0;
 `

@@ -3,28 +3,31 @@ import axios from "axios";
 import { BASE_URL } from "../constants/urls";
 import { GlobalContext } from "../components/Global/GlobalContext";
 import { goToFeedPage } from "../routes/coordinator";
+import { useNavigate } from "react-router-dom";
 
-export const AddPost = () => {
+export const VotePost = () => {
+  const navigate = useNavigate();
   const { isLoading, setIsLoading } = useContext(GlobalContext);
   // setIsLoading(true);
-  const addPost = (body, clear, navigate) => {
+  const votePost = (id, choice) => {
+    const body = {
+      direction: choice
+    }
     axios
-      .post(`${BASE_URL}/posts`, body, {
+      .post(`${BASE_URL}/posts/${id}/votes`, body, {
         headers: {
-          Authorization: localStorage.getItem('token')
-        }
+          Authorization: localStorage.getItem("token"),
+        },
       })
       .then((res) => {
-        clear();
         // setIsLoading(false);
         goToFeedPage(navigate);
-        alert('Post enviado com sucesso!')
+        alert("Voto enviado com sucesso!");
       })
       .catch((err) => {
         // setIsLoading(false);
         alert(err.response.data.message);
       });
-    //console.log('post')
   };
-  return { addPost };
+  return { votePost };
 };

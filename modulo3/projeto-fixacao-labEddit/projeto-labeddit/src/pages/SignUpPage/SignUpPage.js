@@ -1,15 +1,15 @@
 import React from "react";
-import Typography from "@mui/material/Typography";
 import useUnprotectedPage from "../../hooks/useUnprotectedPage";
 import SignUpForm from "./SignUpForm"
+import {Title, SignUpPageContainer} from "./styled"
 
 const SignUpPage = () => {
   useUnprotectedPage();
   return (
-    <>
-      <Typography align={"center"}>Olá, boas vinsdas ao LabEddit</Typography>
+    <SignUpPageContainer>
+      <Title >{'Olá, boas vindas ao LabEddit ;)'}</Title>
       <SignUpForm />
-    </>
+    </SignUpPageContainer>
   );
 };
 

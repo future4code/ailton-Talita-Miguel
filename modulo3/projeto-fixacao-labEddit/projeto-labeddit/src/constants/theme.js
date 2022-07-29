@@ -5,7 +5,8 @@ const theme = createTheme({
   palette: {
     primary: {
       main: primaryColor,
-      contrastText: "white"
+      contrastText: "white",
+      mainGradient: "linear-gradient(to right, tomato, cyan)",
     },
     text: {
       primary: neutralColor
