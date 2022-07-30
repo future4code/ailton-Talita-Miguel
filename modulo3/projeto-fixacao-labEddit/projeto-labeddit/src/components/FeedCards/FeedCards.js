@@ -47,7 +47,7 @@ const PostCards = ({ post, getPosts }) => {
     <PostCardContainer>
       <Card
         sx={{
-          width: "330px",
+          width: "100%",
           minHeight: 200,
           mb: 2,
         }}

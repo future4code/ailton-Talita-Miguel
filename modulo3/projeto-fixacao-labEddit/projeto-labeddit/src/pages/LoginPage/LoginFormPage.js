@@ -42,6 +42,7 @@ const LoginForm = () => {
           margin="normal"
           required
           pattern={"^.{8,}"}
+          title="Senha com no mínimo 8 caracteres!"
           type={"password"}
         />
 

@@ -59,6 +59,8 @@ const SignUpForm = () => {
           label={"Senha"}
           variant={"outlined"}
           type={"password"}
+          title="Senha com no mínimo 8 caracteres!"
+          pattern={"^.{8,}"}
           fullWidth
           required
           margin="normal"
