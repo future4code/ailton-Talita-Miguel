@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import FeedCards from "../../components/FeedCards/FeedCards";
 import useProtectedPage from "../../hooks/useProtectedPage";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { BASE_URL } from "../../constants/urls";
 import { FeedPageContainer, Loading, FeedPageCards } from "./styled";
 import FeedPageForm from "./FeedPageForm";
@@ -36,12 +35,6 @@ const FeedPage = () => {
       })
       .catch((error) => {
         setIsLoading(false);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Algo deu errado. Tente novamente mais tarde",
-          footer: `Código do erro ${error.response.status}`,
-        });
       });
   };
 
