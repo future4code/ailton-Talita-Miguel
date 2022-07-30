@@ -15,6 +15,7 @@ import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineR
 import { PostCardContainer } from "./styled";
 import ReplyPostForm from "./ReplyPostForm";
 import { votePost, DeleteVotePost } from "../../services/votePost";
+import PostsComments from "../../pages/PostsComments/PostsComments";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -133,7 +134,10 @@ const PostCards = ({ post, getPosts }) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <ReplyPostForm post={post} getPosts={getPosts}/>
+            <PostsComments post={post} />
+          </CardContent>
+          <CardContent>
+            <ReplyPostForm post={post} getPosts={getPosts} />
           </CardContent>
         </Collapse>
       </Card>
