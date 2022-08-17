@@ -59,46 +59,31 @@ app.listen(3003, () => {
 });
 
 // Exercício 4 e refatoração exercício 10- Crie um endpoint que **retorna todos os produtos**.
-app.get("/allProducts", (req: Request, res: Response) => {
+app.get("/allproducts", (req:Request, res:Response) => {
+  const { search } = req.query;
   try {
-    const {search} = req.query
+    let ListToDisplay: Product[] = [];
 
-    console.log(search)
-
-    if(!listProducts) {
-      res.statusCode = 404
-      throw new Error("Não foi possível achar a lista de produtos");
+    if (search === "") {
+      ListToDisplay = [...listProducts];
     }
 
-    // if(!search) {
-    //   res.statusCode = 401
-    //   throw new Error("Não foi possível encontrar a busca solicitada");
-    // }
+    const filteredeByName: Product[] = listProducts.filter((item) => {
+      return item.name === search;
+    });
 
-    const filteredByName:Product[] = listProducts.filter((item) => { 
-      return item.name === search 
-    })
-
-    if(filteredByName.length === 0) {
-      res.statusCode = 404
-      throw new Error(`Não foi possivel achar o ${search} na lista de produtos`)
+    if (search !== "" && filteredeByName.length === 0) {
+      res.statusCode = 404;
+      throw new Error("Product not found");
     }
 
-    let listToDisplay:Product[] =[]
-
-    if(filteredByName) {
-      listToDisplay = filteredByName
+    if (filteredeByName.length !== 0) {
+      ListToDisplay = [...filteredeByName];
     }
 
-    if(!search) {
-      listToDisplay = listProducts
-    }
-
-    res
-      .status(200)
-      .send({ message: "Lista com todos os produtos", data: listToDisplay });
-  } catch (error:any) {
-    res.status(res.statusCode || 500).send({ message: error.message })
+    res.status(200).send(ListToDisplay);
+  } catch (error: any) {
+    res.status(res.statusCode || 500).send({ message: error.message });
   }
 });
 
@@ -184,3 +169,52 @@ app.get("/allProducts", (req: Request, res: Response) => {
     res.status(res.statusCode || 500).send({ message: error.message })
   }
  })
+
+ // Exercício 11
+
+ app.put("/allproduct/edit/:id", (req: Request, res: Response) => {
+  try {
+    const { price, name } = req.body;
+    const id = req.params.id;
+    //Ex11
+    if (!price && !name) {
+      res.statusCode = 401;
+      throw new Error("There is no price or name informed");
+    }
+    if ((price && typeof price !== "number") || price < 0) {
+      res.statusCode = 401;
+      throw new Error("Price is not a number or is negative");
+    }
+    if (typeof name !== "string" && !price) {
+      res.statusCode = 401;
+      throw new Error("Name is not a string - not valid format");
+    }
+    if (
+      listProducts.filter((item) => {
+        return item.id === id;
+      }).length === 0
+    ) {
+      res.statusCode = 404;
+      throw new Error("Product not found");
+    }
+    const pruductToChange: Product[] = listProducts.map((item) => {
+      if (item.id === id) {
+        if (price) {
+          item.price = price;
+        }
+        if (name) {
+          item.name = name;
+        }
+      }
+      return item;
+    });
+    res
+      .status(200)
+      .send({
+        message: "Product info changed successfully",
+        data: pruductToChange,
+      });
+  } catch (error: any) {
+    res.status(res.statusCode || 500).send({ message: error.message });
+  }
+});
