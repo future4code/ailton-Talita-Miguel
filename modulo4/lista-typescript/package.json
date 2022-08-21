@@ -1,0 +1,27 @@
+{
+  "name": "lista-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node ./build/index.js",
+    "exercicio1": "tsc && node ./build/exercicio1/index.js",
+    "exercicio2": "tsc && node ./build/exercicio2/index.js",
+    "exercicio3": "tsc && node ./build/exercicio3/index.js",
+    "exercicio4": "tsc && node ./build/exercicio4/index.js",
+    "exercicio5": "tsc && node ./build/exercicio5/index.js",
+    "exercicio6": "tsc && node ./build/exercicio6/index.js",
+    "exercicio7": "tsc && node ./build/exercicio7/index.js",
+    "exercicio8": "tsc && node ./build/exercicio8/index.js",
+    "exercicio9": "tsc && node ./build/exercicio9/index.js",
+    "exercicio10": "tsc && node ./build/exercicio10/index.js",
+    "exercicio11": "tsc && node ./build/exercicio11/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.7.4"
+  }
+}
