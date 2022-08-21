@@ -50,9 +50,9 @@ export const listUsers: User[] = [
         date:"01/08/2022"
       },
       {
-        value:50,
+        value:-20,
         description: "pet",
-        date:"20/08/2022"
+        date:"15/08/2022"
       }
     ]
   }
