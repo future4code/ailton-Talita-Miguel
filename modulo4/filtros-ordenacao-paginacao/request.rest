@@ -1,0 +1,17 @@
+GET http://localhost:3003/users
+
+###
+GET http://localhost:3003/userByName?name=miau
+
+###
+GET http://localhost:3003/userByType/cx
+
+###
+GET http://localhost:3003/usersOrdered?search=name
+
+###
+GET http://localhost:3003/usersPagination?page=3
+
+###
+GET http://localhost:3003/userAllFunction
+
