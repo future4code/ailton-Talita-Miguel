@@ -1,0 +1,36 @@
+GET http://localhost:3003/connectionTest
+
+###
+
+GET http://localhost:3003/user/byEmail
+Content-Type: application/json
+
+{
+  "email": "mia@gmail.com"
+}
+
+###
+
+GET http://localhost:3003/user/login
+Content-Type: application/json
+
+{
+  "email": "mia@gmail.com",
+  "password": "mia123456"
+}
+
+###
+
+GET http://localhost:3003/user/byId
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3ZmFiMTRjLTZkY2ItNDlmOC1iMWE3LWJkMzllOTg4N2VlOCIsImlhdCI6MTY2MzAxOTE0NiwiZXhwIjoxNjYzMDIyNzQ2fQ.OanKx99AjJTM9aR_pStTraDUjEViZvxLUTizKFwL4Uw
+
+###
+
+POST http://localhost:3003/user/signup
+Content-Type: application/json
+
+{
+  "email": "hanna@gmail.com",
+  "password": "hanna123456"
+}
