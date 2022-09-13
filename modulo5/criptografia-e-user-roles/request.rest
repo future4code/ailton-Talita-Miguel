@@ -1,0 +1,29 @@
+GET http://localhost:3003/connectionTest
+
+###
+
+GET HTTP://localhost:3003/user/login
+Content-Type: application/json
+
+{
+   "email": "anamaria@gmail.com",
+   "password": "ana123456"
+}
+
+###
+
+GET http://localhost:3003/user/byId
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJpZCI6ImJkZTgyYWMwLWY1NmQtNDVjYS1iOTk0LTJmMjE1YzU5ZDU2MSIsInJvbGUiOiJOT1JNQUwifSwiaWF0IjoxNjYzMDk1NzYwLCJleHAiOjE2NjMwOTkzNjB9.yS9vaESpwuvw5x24qB4K_cbI58xsDb5P6hdiMbjmFww
+
+
+###
+POST HTTP://localhost:3003/user/signup
+Content-Type: application/json
+
+{
+  "email": "guria100@gmail.com",
+  "password": "guria123",
+  "role": "admin"
+}
+
