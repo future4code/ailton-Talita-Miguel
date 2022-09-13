@@ -6,8 +6,8 @@ GET HTTP://localhost:3003/user/login
 Content-Type: application/json
 
 {
-   "email": "anamaria@gmail.com",
-   "password": "ana123456"
+   "email": "guria100@gmail.com",
+   "password": "guria123"
 }
 
 ###
@@ -16,6 +16,11 @@ GET http://localhost:3003/user/byId
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJpZCI6ImJkZTgyYWMwLWY1NmQtNDVjYS1iOTk0LTJmMjE1YzU5ZDU2MSIsInJvbGUiOiJOT1JNQUwifSwiaWF0IjoxNjYzMDk1NzYwLCJleHAiOjE2NjMwOTkzNjB9.yS9vaESpwuvw5x24qB4K_cbI58xsDb5P6hdiMbjmFww
 
+###
+
+GET http://localhost:3003/user/token
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJpZCI6IjY0MWZlMTcyLTczYjItNDA1My04MmUyLWU0MjZhNWYwMGE0YyIsInJvbGUiOiJBRE1JTiJ9LCJpYXQiOjE2NjMxMDg3NDYsImV4cCI6MTY2MzExMjM0Nn0.4qK7u-Aym1yRRL6P0bxiLB1ANk51B7CZ0evAnhttzNY
 
 ###
 POST HTTP://localhost:3003/user/signup
@@ -25,5 +30,15 @@ Content-Type: application/json
   "email": "guria100@gmail.com",
   "password": "guria123",
   "role": "admin"
+}
+
+###
+
+DELETE http://localhost:3003/user/deletebyId
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mbyI6eyJpZCI6IjFkMmI4YjI0LTljN2MtNDQ3ZS1hMDA5LTFhYmYxZjc3NzFiMyIsInJvbGUiOiJBRE1JTiJ9LCJpYXQiOjE2NjMwOTY5MzIsImV4cCI6MTY2MzEwMDUzMn0.D9qb1jYOFqswF4IRITRIYzv0KdRhVSv8zoVbrh7Eu1g
+
+{
+  "id": "b82633a7-f5f6-42bb-9acb-b47bf3c9130b"
 }
 

@@ -49,4 +49,13 @@ export class UserDatabase extends BaseDatabase {
 
     return result;
   }
+
+  public async delUserById(id: string): Promise<any> {
+    const result = await this.getConnection()
+      .delete("*")
+      .from("User")
+      .where({ id });
+
+    return `User deleted successfully`;
+  }
 }

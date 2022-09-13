@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UserDatabase } from "../data/userDatabase";
 import { EmailExist } from "../error/EmailExist";
 import { EmailNoExist } from "../error/EmailNoExist";
+import { ExpiredToken } from "../error/ExpiredToken";
 import { InvalidCredencial } from "../error/InvalidCredencial";
 import { MissingFields } from "../error/MissingFields";
 import { PermissionDenied } from "../error/PermissionDenied";
@@ -37,7 +38,7 @@ class UserEndpoint {
         password
       );
 
-      const roleUpper = role.toUpperCase() ;
+      const roleUpper = role.toUpperCase();
 
       const newUser = new User(id, email, hashPassword, roleUpper);
 
@@ -123,9 +124,9 @@ class UserEndpoint {
     try {
       const token = req.headers.authorization!;
 
-      const isOk = new Authenticator().verifyToken(token);
+      const isOk: any = new Authenticator().verifyToken(token);
 
-      if(isOk.role === "ADMIN") {
+      if (isOk.role === "ADMIN") {
         throw new PermissionDenied();
       }
 
@@ -138,6 +139,62 @@ class UserEndpoint {
       }
 
       res.status(200).send({ message: "Dados do usuário", user });
+    } catch (error: any) {
+      res.status(error.statusCode || 500).send({ message: error.message });
+    }
+  }
+
+  public async getUserToken(req: Request, res: Response) {
+    try {
+      const token = req.headers.authorization!;
+
+      const isOk: any = new Authenticator().verifyToken(token);
+
+      if (isOk === false) {
+        throw new ExpiredToken();
+      }
+
+      const userData = new UserDatabase();
+
+      const user = await userData.getUserById(isOk.id);
+
+      if (!user) {
+        throw new InvalidCredencial();
+      }
+
+      res.status(200).send({ message: "Dados do usuário", user });
+    } catch (error: any) {
+      res.status(error.statusCode || 500).send({ message: error.message });
+    }
+  }
+
+  public async delUserById(req: Request, res: Response) {
+    try {
+      const { id } = req.body;
+
+      if (!id) {
+        throw new InvalidCredencial();
+      }
+
+      const token = req.headers.authorization!;
+
+      const isOk: any = new Authenticator().verifyToken(token);
+
+      if (isOk.role === "NORMAL") {
+        throw new PermissionDenied();
+      }
+
+      const userData = new UserDatabase();
+
+      const user = await userData.getUserById(isOk.id);
+
+      if (!user) {
+        throw new InvalidCredencial();
+      }
+
+      const result = await userData.delUserById(id);
+
+      res.status(200).send({ message: result });
     } catch (error: any) {
       res.status(error.statusCode || 500).send({ message: error.message });
     }

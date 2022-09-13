@@ -29,11 +29,17 @@ class Authenticator {
   }
 
   verifyToken(token: string) {
-    const verify = jwt.verify(token, process.env.JWT_KEY as string) as any;
+    let verify;
+    try {
+      verify = jwt.verify(token, process.env.JWT_KEY as string) as any;
+      console.log(verify);
 
-    const returnType: UserSystem = verify.userInfo;
-
-    return returnType;
+      const returnType: UserSystem = verify.userInfo;
+      return returnType;
+    } catch (error) {
+      verify = false
+      return verify
+    }
   }
 }
 
