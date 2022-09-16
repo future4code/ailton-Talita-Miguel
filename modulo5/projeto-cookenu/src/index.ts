@@ -13,4 +13,5 @@ app.post("/user/signup", user.createUser);
 app.post("/user/login", user.login);
 app.get("/user/:userId", user.getUserById);
 
+app.get("/recipe/:recipeId", recipe.getRecipeById);
 app.post("/recipe", recipe.createRecipe);
