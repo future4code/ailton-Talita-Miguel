@@ -3,12 +3,13 @@ export enum USER_ROLES {
     ADMIN = "ADMIN"
 }
 
-class User{
+class UserModel{
     constructor(
         private id:string, 
         private name:string,
         private email:string,
-        private password:string
+        private password:string,
+        private role:USER_ROLES
     ){}
     
     public getId(){
@@ -26,6 +27,10 @@ class User{
     public getPassword(){
         return this.password
     }
+
+    public getRole(){
+        return this.role
+    }
 }
 
-export default User
+export default UserModel

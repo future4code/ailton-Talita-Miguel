@@ -6,6 +6,7 @@ const user = new createUser();
 
 app.get("/connectionTest", connectionTest);
 app.get("/user/byEmail", user.getUserByEmail);
-// app.get("/user/byId", user.getUserById);
+app.get("/user/profile", user.getUserByIdProfile);
 app.post("/user/signup", user.createUser);
 app.post("/user/login", user.login);
+app.get("/user/:userId", user.getUserById);

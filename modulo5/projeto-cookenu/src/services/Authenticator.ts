@@ -1,13 +1,19 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { USER_ROLES } from "../model/User";
 
 dotenv.config();
 
+interface UserSystem {
+  id: string;
+  role: USER_ROLES;
+}
+
 class Authenticator {
-  generateToken(id: string) {
+  generateToken(userInfo: UserSystem) {
     const token = jwt.sign(
       {
-        id,
+        userInfo,
       },
       process.env.JWT_KEY as string,
       {
@@ -19,9 +25,15 @@ class Authenticator {
   }
 
   verifyToken(token: string) {
-    const verify = jwt.verify(token, process.env.JWT_KEY as string) as any;
+    try {
+      const verify = jwt.verify(token, process.env.JWT_KEY as string) as any;
 
-    return verify.id;
+      const returnType = verify.userInfo;
+
+      return returnType;
+    } catch (error) {
+      return false;
+    }
   }
 }
 

@@ -2,9 +2,11 @@ import { Request, Response } from "express";
 import { UserDatabase } from "../data/userDatabase";
 import { EmailExist } from "../error/EmailExist";
 import { EmailNoExist } from "../error/EmailNoExist";
-import { InvalidCredencial } from "../error/InvalidCredencial";
+import { InvalidCredential } from "../error/InvalidCredential";
 import { MissingFields } from "../error/MissingFields";
-import User from "../model/User";
+import { PermissionDenied } from "../error/PermissionDenied";
+import UserModel from "../model/User";
+import User, { USER_ROLES } from "../model/User";
 import Authenticator from "../services/Authenticator";
 import GenerateId from "../services/GenerateId";
 import { HashManager } from "../services/HashManager";
@@ -12,16 +14,17 @@ import { HashManager } from "../services/HashManager";
 class UserEndpoint {
   public async createUser(req: Request, res: Response) {
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password, role } = req.body;
 
       if (
-        !name ||
-        !password ||
-        password.length < 6 ||
         !email ||
-        email.indexOf("@") === -1
+        !password ||
+        !email.includes("@") ||
+        password.length < 6 ||
+        !role ||
+        !name
       ) {
-        throw new InvalidCredencial();
+        throw new InvalidCredential();
       }
 
       const userDataBase = new UserDatabase();
@@ -38,15 +41,17 @@ class UserEndpoint {
         password
       );
 
-      const user = new User(id, name, email, hashPassword);
+      const roleUpper: USER_ROLES = role.toUpperCase();
 
-      await userDataBase.createUser(user);
+      const newUser = new UserModel(id, name, email, hashPassword, roleUpper);
 
-      const token = new Authenticator().generateToken(id);
+      const result = await userDataBase.createUser(newUser);
+
+      const token = new Authenticator().generateToken({ id, role: roleUpper });
 
       res
         .status(201)
-        .send({ message: "Usuário cadastrado com sucesso", token });
+        .send({ message: "Usuário cadastrado com sucesso", result, token });
     } catch (error: any) {
       res.status(error.statusCode || 500).send({ message: error.message });
     }
@@ -59,7 +64,7 @@ class UserEndpoint {
       const userDataBase = new UserDatabase();
 
       if (!email || email.indexOf("@") === -1) {
-        throw new InvalidCredencial();
+        throw new InvalidCredential();
       }
 
       const emailAlreadyExist = await userDataBase.getUserByEmail(email);
@@ -70,7 +75,7 @@ class UserEndpoint {
 
       const result = await userDataBase.getUserByEmail(email);
 
-      res.status(201).send({ message: "Dados do usuário", result });
+      res.status(200).send({ message: "Dados do usuário", result });
     } catch (error: any) {
       res.status(error.statusCode || 500).send({ message: error.message });
     }
@@ -80,36 +85,28 @@ class UserEndpoint {
     try {
       const { email, password } = req.body;
 
-      if (
-        !email ||
-        !password ||
-        !email.includes("@") ||
-        password.length < 6
-      ) {
-        throw new InvalidCredencial();
+      if (!email || !password || !email.includes("@") || password.length < 6) {
+        throw new InvalidCredential();
       }
 
       const userData = new UserDatabase();
-
       const emailExist: any = await userData.getUserByEmail(email);
-
       let correctPassword: boolean = false;
+
       if (!emailExist) {
         throw new EmailNoExist();
       }
 
       const hash = emailExist.getPassword();
 
-      correctPassword = await new HashManager().compareHash(
-        password,
-        hash
-      );
+      correctPassword = await new HashManager().compareHash(password, hash);
 
       if (!correctPassword) {
-        throw new InvalidCredencial();
+        throw new InvalidCredential();
       }
 
-      const token = new Authenticator().generateToken(emailExist.getId());
+      const token = new Authenticator().generateToken({id: emailExist.getId(), role: emailExist.role});
+
 
       res.status(200).send({ token });
     } catch (error: any) {
@@ -117,25 +114,62 @@ class UserEndpoint {
     }
   }
 
-  public async getUserById(req: Request, res: Response) {
+  public async getUserByIdProfile(req: Request, res: Response) {
     try {
       const token = req.headers.authorization!;
 
-      console.log(token);
-
-      const id = new Authenticator().verifyToken(token);
+      const isOk = new Authenticator().verifyToken(token);
 
       const userData = new UserDatabase();
 
-      const user = await userData.getUserById(id);
+      const user: UserModel = await userData.getUserById(isOk.id);
 
       if (!user) {
-        throw new InvalidCredencial();
+        throw new InvalidCredential();
       }
 
-      res.status(200).send({ message: "Dados do usuário", user });
+      res.status(200).send({
+        message: {
+          id: user.getId(),
+          email: user.getEmail(),
+          role: user.getRole(),
+        },
+      });
     } catch (error: any) {
       res.status(error.statusCode || 500).send({ message: error.message });
+    }
+  }
+
+  public async getUserById(req: Request, res: Response) {
+    try {
+      const userId = req.params.userId;
+      const token = req.headers.authorization!;
+
+      if (!userId) {
+        throw new InvalidCredential();
+      }
+
+      const isOk = new Authenticator().verifyToken(token);
+
+      const userData = new UserDatabase();
+
+      const user: UserModel = await userData.getUserById(isOk.id);
+
+      if (!isOk) {
+        throw new PermissionDenied();
+      }
+
+      res.status(200).send({
+        message: {
+          id: user.getId(),
+          email: user.getEmail(),
+          name: user.getName(),
+        },
+      });
+    } catch (error: any) {
+      res
+        .status(error.statusCode || 500)
+        .send({ message: error.message || error.sqlMessage });
     }
   }
 }
