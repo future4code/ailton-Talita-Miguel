@@ -2,6 +2,7 @@ import UserModel from "../model/User";
 import { BaseDatabase } from "./BaseDataBase";
 
 export class UserDatabase extends BaseDatabase {
+  
   public async createUser(user: UserModel) {
     await this.getConnection()
       .insert({
